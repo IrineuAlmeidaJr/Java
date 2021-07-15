@@ -7,8 +7,7 @@ public class Customer {
     private String name;
     private ArrayList<Double> transactions;
 
-    // Conferir se tem 'transaction' se é adicionado ou não, se é usado.
-    public Customer(String name, Double transaction) {
+    public Customer(String name, double transaction) {
         this.name = name;
         this.transactions = new ArrayList<Double>();
         addTransaction(transaction);
@@ -25,7 +24,5 @@ public class Customer {
     public void addTransaction(double transaction) {
         this.transactions.add(transaction); //autoboxing
     }
-
-
 
 }
