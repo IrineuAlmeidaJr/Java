@@ -29,25 +29,35 @@ public class Main {
         // Again, we are not going to use Java file I/O; instead use the readValues() method below to
         // simulate getting values from a file – this allows you to type as many values as your class
         // requires, and returns an ArrayList.
-        // There is a whole Java I/O section later in the course where you will get to use files, etc.
 
         Player player1 = new Player("Junior", 20, 30);
-        System.out.println(player1.toString());
+        System.out.println(player1);
         saveObject(player1);
 
         player1.setHitPoint(8);
         System.out.println(player1);
         player1.setWeapon("Stormbringer");
         saveObject(player1);
-        loadObject(player1);
-        System.out.println(player1 );
+        //loadObject(player1);
+        System.out.println(player1);
+
+//        ISaveable werewolf = new Monster("Werewolf", 20, 40);
+//        System.out.println(werewolf);
+//        System.out.println("Strength = " + ((Monster)werewolf).getStrength());
+//        saveObject(werewolf);
+
+        Monster werewolf = new Monster("Werewolf", 20, 40);
+        System.out.println(werewolf);
+        System.out.println("Strength = " + werewolf.getStrength());
+        saveObject(werewolf);
+
 
 
     }
 
 
     public static ArrayList<String> readValues() {
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
