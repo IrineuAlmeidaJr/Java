@@ -12,7 +12,7 @@ public class Estoque {
     }
 
     public boolean addItem(int codigo, String nome, String tipo, double preco, boolean porPeso){
-        if(buscaItem(codigo) != null && buscaItem(nome) != null) {
+        if(buscaItem(codigo) != null) {
             if(preco > 0) {
                 this.armagem.add(new Item(codigo, nome, tipo, preco, porPeso));
                 return true;
@@ -20,6 +20,17 @@ public class Estoque {
         }
         return false;
     }
+
+    public double removerItem(int codigo) {
+        Item retorno = buscaItem(codigo);
+        if(retorno != null) {
+            double preco = retorno.getPreco();
+            this.armagem.remove(retorno);
+            return preco;
+        }
+        return 0;
+    }
+
 
     private Item buscaItem(int codigo) {
         for(int i=0; i < this.armagem.size(); i++) {
