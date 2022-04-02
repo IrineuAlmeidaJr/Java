@@ -152,7 +152,7 @@ public class Arquivo {
 
     // Métodos Ordenação
 
-//    [1] - Inserção Direta
+    //    [1] - Inserção Direta
     public void isercaoDireta() {
         int pos, TL;
         TL = filesize();
@@ -313,7 +313,6 @@ public class Arquivo {
     }
 
     //    [5] - Shake
-
     public void shakeSort() {
         int aux, ini, fim;
         Registro reg1 = new Registro();
@@ -352,8 +351,7 @@ public class Arquivo {
         }
     }
 
-    // [6] - Shell
-
+    //    [6] - Shell
     public void shellSort() {
         int dist = 4, aux, k, TL;
         Registro reg1 = new Registro();
