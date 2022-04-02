@@ -211,6 +211,7 @@ public class Arquivo {
             meio = (ini+fim)/2;
             seekArq(meio);
             regMeio.leDoArq(arquivo);
+            comp++; // Coloquei pq depois ele volta comparando
         }
 
         comp++;
@@ -311,40 +312,7 @@ public class Arquivo {
         }
     }
 
-//    // - Shake
-//    public void shake() {
-//        int aux;
-//        No Inicio, Fim, i;
-//        Inicio = inicio;
-//        Fim = fim;
-//        boolean continua = true;
-//        // Ele avança um endereço e passa, ai pega Null Point,
-//        // deveria ser enquanto é menor.
-//        while(continua) { // (Inicio != Fim)
-//            for(i = Inicio; i != Fim; i = i.getProx()) {
-//                if(i.getInfo() > i.getProx().getInfo()) {
-//                    aux = i.getInfo();
-//                    i.setInfo(i.getProx().getInfo());
-//                    i.getProx().setInfo(aux);
-//                }
-//            }
-//            Fim = Fim.getAnt();
-//            if(Inicio == Fim)
-//                continua = false;
-//            for(i = Fim; i != Inicio; i = i.getAnt()) {
-//                if(i.getInfo() < i.getAnt().getInfo()) {
-//                    aux = i.getInfo();
-//                    i.setInfo(i.getAnt().getInfo());
-//                    i.getAnt().setInfo(aux);
-//                }
-//            }
-//            Inicio = Inicio.getProx();
-//            if(Inicio == Fim)
-//                continua = false;
-//            // Tive colocar o código abaixo ou teria contar como TL?,
-//            // Pq ele avançava
-//        }
-//    }
+    //    [5] - Shake
 
     public void shakeSort() {
         int aux, ini, fim;
@@ -381,6 +349,58 @@ public class Arquivo {
                 }
             }
             ini++;
+        }
+    }
+
+    // [6] - Shell
+
+    public void shellSort() {
+        int dist = 4, aux, k, TL;
+        Registro reg1 = new Registro();
+        Registro reg2 = new Registro();
+        TL = filesize();
+        while(dist > 0) {
+            for(int i=0; i < dist; i++) {
+                for(int j=0; j+dist < TL; j++) {
+                    seekArq(j);
+                    reg1.leDoArq(arquivo);
+                    seekArq(j+dist);
+                    reg2.leDoArq(arquivo);
+
+                    comp++;
+                    if(reg1.getNumero() > reg2.getNumero()) {
+                        mov++;
+                        seekArq(j);
+                        reg2.gravaNoArq(arquivo);
+                        mov++;
+                        seekArq(j+dist);
+                        reg1.gravaNoArq(arquivo);
+
+                        k = j;
+                        seekArq(k);
+                        reg1.leDoArq(arquivo);
+                        seekArq(k-dist);
+                        reg2.leDoArq(arquivo);
+                        comp++;
+                        while(k-dist >= 0 && reg1.getNumero() < reg2.getNumero()) {
+                            mov++;
+                            seekArq(k);
+                            reg2.gravaNoArq(arquivo);
+                            mov++;
+                            seekArq(k-dist);
+                            reg1.gravaNoArq(arquivo);
+
+                            k--;
+                            seekArq(k);
+                            reg2.leDoArq(arquivo);
+                            seekArq(k-dist);
+                            reg1.leDoArq(arquivo);
+                            comp++; // Coloquei pq depois ele volta comparando
+                        }
+                    }
+                }
+            }
+            dist/=2;
         }
     }
 
