@@ -2,10 +2,11 @@ package com.company;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Stack;
 
 public class Arquivo {
 
-    private int numRegTotal = 3;
+    private int numRegTotal = 5;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
@@ -459,6 +460,239 @@ public class Arquivo {
             seekArq(TL-1);
             regMaiorF.gravaNoArq(arquivo);
             TL--;
+        }
+    }
+
+    //    [8] - QUICK S/PIVÔ
+    private void quickSemPivo(int ini, int fim) {
+        int i = ini, j = fim;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+        while(i < j) {
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            comp++;
+            while(i < j && regI.getNumero() <= regJ.getNumero()) {
+                i++;
+                regI.getNumero();
+            }
+            if(i < j) { // Evita gravações redundantes
+                mov++;
+                seekArq(i);
+                regJ.gravaNoArq(arquivo);
+                mov++;
+                seekArq(j);
+                regI.gravaNoArq(arquivo);
+            }
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            comp++;
+            while(i < j && regI.getNumero() <= regJ.getNumero()) {
+                j--;
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+            }
+            if(i < j) { // Evita gravações redundantes
+                mov++;
+                seekArq(i);
+                regJ.gravaNoArq(arquivo);
+                mov++;
+                seekArq(j);
+                regI.gravaNoArq(arquivo);
+            }
+        }
+
+        if(ini < i-1) {
+            quickSemPivo(ini, i-1);
+        }
+        if(j+1 < fim) {
+            quickSemPivo(j+1, fim);
+        }
+    }
+
+    public void quickSemPivo() {
+        int TL = filesize();
+        quickSemPivo(0, TL-1);
+    }
+
+    //    [8] - QUICK S/PIVÔ - Iterativo
+    public void quickSemPivoIterativo() {
+        Stack<Integer> pilha = new Stack<Integer>();
+        int ini = 0, fim = filesize() - 1;
+        int i, j;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+
+        pilha.push(ini);
+        pilha.push(fim);
+        while(!pilha.isEmpty()) {
+            fim = pilha.pop();
+            ini = pilha.pop();
+
+            i = ini;
+            j = fim;
+            while(i < j) {
+                seekArq(i);
+                regI.leDoArq(arquivo);
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+                comp++;
+                while(i < j && regI.getNumero() <= regJ.getNumero()) {
+                    i++;
+                    regI.getNumero();
+                }
+                if(i < j) { // Evita gravações redundantes
+                    mov++;
+                    seekArq(i);
+                    regJ.gravaNoArq(arquivo);
+                    mov++;
+                    seekArq(j);
+                    regI.gravaNoArq(arquivo);
+                }
+                seekArq(i);
+                regI.leDoArq(arquivo);
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+                comp++;
+                while(i < j && regI.getNumero() <= regJ.getNumero()) {
+                    j--;
+                    seekArq(j);
+                    regJ.leDoArq(arquivo);
+                }
+                if(i < j) { // Evita gravações redundantes
+                    mov++;
+                    seekArq(i);
+                    regJ.gravaNoArq(arquivo);
+                    mov++;
+                    seekArq(j);
+                    regI.gravaNoArq(arquivo);
+                }
+            }
+
+            if (ini < i-1) {
+                pilha.push(ini);
+                pilha.push(i-1);
+            }
+            if (j+1 < fim) {
+                pilha.push(j+1);
+                pilha.push(fim);
+            }
+        }
+
+    }
+
+    //    [9] - QUICK C/PIVÔ
+    private void quickComPivo(int ini, int fim) {
+        int i = ini, j = fim, pivo;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+        seekArq((ini+fim)/2);
+        regI.leDoArq(arquivo);
+        pivo = regI.getNumero();
+        while(i < j) {
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            comp++;
+            while(regI.getNumero() < pivo) {
+                i++;
+                regI.leDoArq(arquivo);
+            }
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            comp++;
+            while(regJ.getNumero() > pivo) {
+                j--;
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+            }
+            if(i <= j) {
+                if(i < j) {
+                    mov++;
+                    seekArq(i);
+                    regJ.gravaNoArq(arquivo);
+                    mov++;
+                    seekArq(j);
+                    regI.gravaNoArq(arquivo);
+                }
+                i++;
+                j--;
+            }
+        }
+
+        if(ini < j) {
+            quickComPivo(ini, j);
+        }
+        if(i < fim) {
+            quickComPivo(i, fim);
+        }
+    }
+
+    public void quickComPivo() {
+        int TL = filesize();
+        quickComPivo(0, TL-1);
+    }
+
+    //    [9.1] - QUICK C/PIVÔ - Iterativo
+    public void quickComPivoIterativo() {
+        Stack<Integer> pilha = new Stack<Integer>();
+        int ini = 0, fim = filesize() - 1;
+        int i, j, pivo;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+
+        pilha.push(ini);
+        pilha.push(fim);
+        while (!pilha.isEmpty()) {
+            fim = pilha.pop();
+            ini = pilha.pop();
+
+            i = ini;
+            j = fim;
+            seekArq((i+j)/2);
+            regI.leDoArq(arquivo);
+            pivo = regI.getNumero();
+            while (i < j) {
+                seekArq(i);
+                regI.leDoArq(arquivo);
+                comp++;
+                while (regI.getNumero() < pivo) {
+                    i++;
+                    regI.leDoArq(arquivo);
+                }
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+                comp++;
+                while (regJ.getNumero() > pivo) {
+                    j--;
+                    seekArq(j);
+                    regJ.leDoArq(arquivo);
+                }
+
+                if (i <= j) {
+                    if (i < j) {
+                        mov++;
+                        seekArq(i);
+                        regJ.gravaNoArq(arquivo);
+                        mov++;
+                        seekArq(j);
+                        regI.gravaNoArq(arquivo);
+                    }
+                    i++;
+                    j--;
+                }
+            }
+            if (ini < j) {
+                pilha.push(ini);
+                pilha.push(j);
+            }
+            if (i < fim) {
+                pilha.push(i);
+                pilha.push(fim);
+            }
         }
     }
 
