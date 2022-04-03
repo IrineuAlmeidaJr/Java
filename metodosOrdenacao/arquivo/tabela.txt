@@ -1,6 +1,6 @@
 Metodos Ordenacao  |              Arquivo Ordenado                             |                  Arquivo em Ordem Reversa                         |                    Arquivo Randomico                            |
                    | Comp.Prog. | Comp.Equa. |  Mov.Prog | Mov.Equa. |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog  |  Mov.Equa.  |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog |  Mov.Equa. |  Tempo  |
-   Insercao Direta |        48  | 19,000000  |        0  | 57,000000 |      0  |         351  |  104,000000  |        189  | 228,000000  |      3  |         159  |  104,000000  |       135  |142,000000  |      1  |
+ Merge 1a Implemen |         0  |  0,000000  |        0  |  0,000000 |      7  |           0  |    0,000000  |          0  |   0,000000  |     37  |           0  |    0,000000  |         0  |  0,000000  |      7  |
   Insercao Binaria |       472  | 16,020600  |        0  | 57,000000 |      0  |        2672  |   16,020600  |        189  | 228,000000  |      5  |         454  |   16,020600  |       142  |142,000000  |      2  |
     Selecao Direta |      1176  |190,000000  |        0  | 57,000000 |      2  |       19701  |  190,000000  |         18  | 228,000000  |     45  |        1176  |  190,000000  |        32  | 37,564920  |      2  |
              Bolha |      1176  |190,000000  |        0  |  0,000000 |      5  |       19701  |  190,000000  |        342  | 285,000000  |     88  |        1176  |  190,000000  |       236  |570,000000  |      7  |

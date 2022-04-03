@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Arquivo {
 
-    private int numRegTotal = 20;
+    private int numRegTotal = 16;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
@@ -128,7 +128,7 @@ public class Arquivo {
     public void geraArquivoOrdenado() {
         Registro registro = new Registro(0);
         truncate(0);
-        for(int i=1; i < numRegTotal; i++)   {
+        for(int i=1; i <= numRegTotal; i++)   {
             registro.setNumero(i);
             registro.gravaNoArq(arquivo);
         }
@@ -137,7 +137,7 @@ public class Arquivo {
     public void geraArquivoReverso() {
         Registro registro = new Registro(numRegTotal);
         truncate(0);
-        for(int i=numRegTotal-1; i > 0; i--) {
+        for(int i=numRegTotal; i > 0; i--) {
             registro.setNumero(i);
             registro.gravaNoArq(arquivo);
         }
@@ -145,7 +145,7 @@ public class Arquivo {
     public void geraArquivoRandomico() {
         Registro registro = new Registro(1);
         truncate(0);
-        for(int i=1; i < numRegTotal; i++) {
+        for(int i=1; i <= numRegTotal; i++) {
             registro.setNumero((int) (Math.random() * (numRegTotal * 4) + 1));
             registro.gravaNoArq(arquivo);
         }
@@ -693,6 +693,87 @@ public class Arquivo {
                 pilha.push(i);
                 pilha.push(fim);
             }
+        }
+    }
+
+    //    [10] - MERGE 1 IMPLEMENTAÇÃO
+    private void particao(RandomAccessFile arq1, RandomAccessFile arq2, int TL) {
+        int tam = TL / 2;
+        Registro aux = new Registro();
+        for(int i =0; i < TL; i++) {
+            seekArq(i);
+            aux.leDoArq(arquivo);
+            if(i < tam) {
+                mov++;
+                aux.gravaNoArq(arq1);
+            } else {
+                mov++;
+                aux.gravaNoArq(arq2);
+            }
+        }
+    }
+
+    private void fusao(Arquivo arq1, Arquivo arq2, int seq, int TL) {
+        int i, j, k, T_seq = seq;
+        i = j = k = 0;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+        Registro regK = new Registro();
+        truncate(0);
+        while (k < TL) {
+            while (i < seq && j < seq) {
+                arq1.seekArq(i);
+                regI.leDoArq(arq1.getFile());
+                arq2.seekArq(j);
+                regJ.leDoArq(arq2.getFile());
+                if (regI.getNumero() < regJ.getNumero()) {
+                    seekArq(k);
+                    regI.gravaNoArq(arquivo);
+                    k++;
+                    i++;
+                } else {
+                    seekArq(k);
+                    regJ.gravaNoArq(arquivo);
+                    k++;
+                    j++;
+                }
+            }
+
+            while (i < seq) {
+                arq1.seekArq(i);
+                regI.leDoArq(arq1.getFile());
+                seekArq(k);
+                regI.gravaNoArq(arquivo);
+                k++;
+                i++;
+            }
+
+            while (j < seq) {
+                arq2.seekArq(j);
+                regJ.leDoArq(arq2.getFile());
+                seekArq(k);
+                regJ.gravaNoArq(arquivo);
+                k++;
+                j++;
+            }
+
+            seq += T_seq;
+        }
+    }
+
+    public void mergeSort1() {
+        int TL, seq = 1;
+        Arquivo arq1 = new Arquivo("merge1");
+        Arquivo arq2 = new Arquivo("merge2");
+        Registro reg2 = new Registro();
+        TL = filesize();
+        while(seq < TL) {
+            arq1.truncate(0);
+            arq2.truncate(0);
+            particao(arq1.getFile(), arq2.getFile(), TL);
+            fusao(arq1, arq2, seq, TL);
+
+            seq *= 2;
         }
     }
 

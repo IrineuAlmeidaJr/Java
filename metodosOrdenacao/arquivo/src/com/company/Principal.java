@@ -52,251 +52,444 @@ public class Principal {
         // --- INSERÇÃO DIRETA ---
 
         // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.isercaoDireta();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = numRegTotal-1;
-        ordMovEqua = 3*(numRegTotal-1);
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.isercaoDireta();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = (numRegTotal*numRegTotal + numRegTotal - 4)/4;
-        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.isercaoDireta();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = (numRegTotal*numRegTotal + numRegTotal - 2)/4;
-        randMovEqua = (numRegTotal*numRegTotal + 9*numRegTotal - 10)/4;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Insercao Direta
-        gravaLinhaTabela("Insercao Direta", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.isercaoDireta();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = numRegTotal-1;
+//        ordMovEqua = 3*(numRegTotal-1);
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.isercaoDireta();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = (numRegTotal*numRegTotal + numRegTotal - 4)/4;
+//        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.isercaoDireta();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = (numRegTotal*numRegTotal + numRegTotal - 2)/4;
+//        randMovEqua = (numRegTotal*numRegTotal + 9*numRegTotal - 10)/4;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Insercao Direta
+//        gravaLinhaTabela("Insercao Direta", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- INSERÇÃO BINÁRIA ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.insersaoBinaria();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
+//        ordMovEqua = 3*(numRegTotal-1);
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.insersaoBinaria();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
+//        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.insersaoBinaria();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
+//        randMovEqua = (numRegTotal*numRegTotal + 9*numRegTotal - 10)/4;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Inserção Binária
+//        gravaLinhaTabela("Insercao Binaria", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//        // ---------------------------------------
+//
+//        // --- SELECAO DIRETA ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.selecaoDireta();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        ordMovEqua = 3*(numRegTotal-1);
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.selecaoDireta();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.selecaoDireta();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        randMovEqua = (numRegTotal*(Math.log10(numRegTotal)+0.577216));
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Seleção Direta
+//        gravaLinhaTabela("Selecao Direta", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- BUBBLE SORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.bubbleSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.bubbleSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        revMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/4;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.bubbleSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        randMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/2;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Bolha
+//        gravaLinhaTabela("Bolha", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//
+//        // ---------------------------------------
+//
+//        // --- SHAKE SORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.shakeSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.shakeSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        revMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/4;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.shakeSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
+//        randMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/2;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Shake
+//        gravaLinhaTabela("Shake", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- SHELLSORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.shellSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.shellSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.shellSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Shell
+//        gravaLinhaTabela("Shell", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- HELPSORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.heapSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.heapSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.heapSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Help
+//        gravaLinhaTabela("Heap", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- QUICK S/ PIVÔ ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.quickSemPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.quickSemPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.quickSemPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Quick sem pivo
+//        gravaLinhaTabela("Quick s/pivo", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- QUICK C/ PIVÔ ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.quickComPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.quickComPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.quickComPivoIterativo();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Quick com pivo
+//        gravaLinhaTabela("Quick c/pivo", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 
         // ---------------------------------------
 
-        // --- INSERÇÃO BINÁRIA ---
+
+        // --- MERGE 1ª IMPLEMENTAÇÃO
 
         // - Arquivo Ordenado
         auxOrd.copiaArquivo(arqOrd);
         auxOrd.initComp();
         auxOrd.initMov();
         tini = System.currentTimeMillis();
-        auxOrd.insersaoBinaria();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
-        ordMovEqua = 3*(numRegTotal-1);
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.insersaoBinaria();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
-        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.insersaoBinaria();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = numRegTotal*(Math.log10(numRegTotal)-Math.log(Math.E) + 0.5);
-        randMovEqua = (numRegTotal*numRegTotal + 9*numRegTotal - 10)/4;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Inserção Binária
-        gravaLinhaTabela("Insercao Binaria", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-        // ---------------------------------------
-
-        // --- SELECAO DIRETA ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.selecaoDireta();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        ordMovEqua = 3*(numRegTotal-1);
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.selecaoDireta();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        revMovEqua = (numRegTotal*numRegTotal + 3*numRegTotal - 4)/2;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.selecaoDireta();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        randMovEqua = (numRegTotal*(Math.log10(numRegTotal)+0.577216));
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Seleção Direta
-        gravaLinhaTabela("Selecao Direta", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- BUBBLE SORT ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.bubbleSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.bubbleSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        revMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/4;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.bubbleSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        randMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/2;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Bolha
-        gravaLinhaTabela("Bolha", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-
-        // ---------------------------------------
-
-        // --- SHAKE SORT ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.shakeSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.shakeSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        revMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/4;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.shakeSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = (numRegTotal*numRegTotal - numRegTotal)/2;
-        randMovEqua = 3*(numRegTotal*numRegTotal - numRegTotal)/2;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Shake
-        gravaLinhaTabela("Shake", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- SHELLSORT ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.shellSort();
+        auxOrd.mergeSort1();
         tfim = System.currentTimeMillis();
         compO = auxOrd.getComp();
         movO = auxOrd.getMov();
@@ -309,7 +502,7 @@ public class Principal {
         auxRev.initComp();
         auxRev.initMov();
         tini = System.currentTimeMillis();
-        auxRev.shellSort();
+        auxRev.mergeSort1();
         tfim = System.currentTimeMillis();
         ttotalRev = (tfim - tini)/1000;
         compRev = auxRev.getComp();
@@ -322,7 +515,7 @@ public class Principal {
         auxRand.initComp();
         auxRand.initMov();
         tini = System.currentTimeMillis();
-        auxRand.shellSort();
+        auxRand.mergeSort1();
         tfim = System.currentTimeMillis();
         ttotalRand = (tfim-tini)/1000;
         compRand = auxRand.getComp();
@@ -330,160 +523,12 @@ public class Principal {
         randCompEqua = 0;
         randMovEqua = 0;
 
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Shell
-        gravaLinhaTabela("Shell", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+        //grava na tabela informacoes os dados extraídos das execucoes do método - Merge Sort 1ª Implement
+        gravaLinhaTabela("Merge 1a Implemen", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
                 compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
                 compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 
         // ---------------------------------------
-
-        // --- HELPSORT ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.heapSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.heapSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.heapSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Help
-        gravaLinhaTabela("Heap", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- QUICK S/ PIVÔ ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.quickSemPivoIterativo();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.quickSemPivoIterativo();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.quickSemPivoIterativo();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Quick sem pivo
-        gravaLinhaTabela("Quick s/pivo", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- QUICK C/ PIVÔ ---
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.quickComPivoIterativo();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.quickComPivoIterativo();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.quickComPivoIterativo();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Quick com pivo
-        gravaLinhaTabela("Quick c/pivo", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-
-
-
 
 
 
@@ -498,7 +543,7 @@ public class Principal {
 //        System.out.println("\nSEM ORDENAR ->");
 //        arqRev.exibirArq();
 //        System.out.println("\nORDENADO -> ");
-//        arqRev.quickSemPivoIterativo();
+//        arqRev.mergeSort();
 //        arqRev.exibirArq();
 //
 //        // --> TESTE COM TEMPO
