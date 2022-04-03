@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Arquivo {
 
-    private int numRegTotal = 16;
+    private int numRegTotal = 8;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
@@ -37,10 +37,6 @@ public class Arquivo {
 
     public void setNomearquivo(String nomearquivo) {
         this.nomearquivo = nomearquivo;
-    }
-
-    public RandomAccessFile getArquivo() {
-        return arquivo;
     }
 
     public void setArquivo(RandomAccessFile arquivo) {
@@ -696,7 +692,7 @@ public class Arquivo {
         }
     }
 
-    //    [10] - MERGE 1 IMPLEMENTAÇÃO
+    //    [10] - MERGE 1ª IMPLEMENTAÇÃO
     private void particao(RandomAccessFile arq1, RandomAccessFile arq2, int TL) {
         int tam = TL / 2;
         Registro aux = new Registro();
@@ -763,8 +759,8 @@ public class Arquivo {
 
     public void mergeSort1() {
         int TL, seq = 1;
-        Arquivo arq1 = new Arquivo("merge1");
-        Arquivo arq2 = new Arquivo("merge2");
+        Arquivo arq1 = new Arquivo("merge1.dat");
+        Arquivo arq2 = new Arquivo("merge2.dat");
         Registro reg2 = new Registro();
         TL = filesize();
         while(seq < TL) {
@@ -776,6 +772,148 @@ public class Arquivo {
             seq *= 2;
         }
     }
+
+    //    [11] - MERGE 2ª IMPLEMENTAÇÃO - Não está funcionando
+    private void fusaoMerge(int ini1, int fim1, int ini2, int fim2, Arquivo arqAux) {
+        int i, j, k;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+        i = ini1;
+        j = ini2;
+        k = 0;
+        while(i <= fim1 && j <= fim2) {
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            if(regI.getNumero() < regJ.getNumero()) {
+                seekArq(k);
+                regI.gravaNoArq(arqAux.getFile());
+                k++;
+                i++;
+            } else {
+                seekArq(k);
+                regJ.gravaNoArq(arqAux.getFile());
+                k++;
+                j++;
+            }
+        }
+        while(i <= fim1) {
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            seekArq(k);
+            regI.gravaNoArq(arqAux.getFile());
+            k++;
+            i++;
+        }
+        while(j <= fim2) {
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            seekArq(k);
+            regJ.gravaNoArq(arqAux.getFile());
+            k++;
+            j++;
+        }
+
+        for(i = 0; i < k; i++) {
+            seekArq(i);
+            regI.leDoArq(arqAux.getFile());
+            seekArq(i + ini1);
+            regI.gravaNoArq(arquivo);
+
+        }
+
+//        System.out.println("ARQUIVO PARCIAL ---> ");
+//        arqAux.exibirArq();
+//        System.out.println("----------------------");
+
+    }
+
+    private void mergeSort2(int esq, int dir, Arquivo arqAux)
+    {
+        int meio;
+        if (esq < dir)
+        {
+            meio = (esq + dir) / 2;
+            mergeSort2(esq, meio, arqAux);
+            mergeSort2(meio + 1, dir, arqAux);
+            fusaoMerge(esq, meio, meio + 1, dir, arqAux);
+        }
+    }
+
+    public void mergeSort2()
+    {
+        int TL = filesize();
+        Arquivo arqAux = new Arquivo("auxMerge.dat");
+        arqAux.truncate(0);
+        mergeSort2(0, TL - 1, arqAux);
+    }
+
+    //    [12] - COUNTING -- Não está funcionando
+    public void countingSort(){
+        int j;
+        Arquivo temp = new Arquivo("temp.dat");
+        Registro reg1 = new Registro();
+
+        for(int i = 0; i < filesize(); i++) {
+            seekArq(i);
+            reg1.leDoArq(arquivo);
+            temp.seekArq(reg1.getNumero());
+            j = reg1.getNumero();
+            reg1.leDoArq(temp.arquivo);
+            reg1 = new Registro(reg1.getNumero()+1);
+            temp.seekArq(j);
+            mov++;
+            reg1.gravaNoArq(temp.arquivo);
+        }
+        int i = 0;
+        for(j = 0; j <= numRegTotal; j++) {
+            temp.seekArq(j);
+            reg1.leDoArq(temp.arquivo);
+            for(int k = reg1.getNumero(); k > 0; k--) {
+                seekArq(i);
+                reg1 = new Registro(j);
+                mov++;
+                reg1.gravaNoArq(arquivo);
+                seekArq(j);
+                reg1.leDoArq(arquivo);
+                i++;
+            }
+        }
+    }
+
+
+
+
+    //    [15] - GNOME
+    public void gnomeSort() {
+        int i = 0;
+        Registro reg1 = new Registro();
+        Registro reg2 = new Registro();
+        while(i < filesize()) {
+            if(i == 0) {
+                i++;
+            }
+            seekArq(i);
+            reg1.leDoArq(arquivo);
+            seekArq(i-1);
+            reg2.leDoArq(arquivo);
+            comp++;
+            if(reg1.getNumero() >= reg2.getNumero()) {
+                i++;
+            } else {
+                seekArq(i-1);
+                mov++;
+                reg1.gravaNoArq(arquivo);
+                mov++;
+                seekArq(i);
+                reg2.gravaNoArq(arquivo);
+                i--;
+            }
+        }
+    }
+
+
 
     // TESTE EXIBIR
     public void exibirArq()
