@@ -5,7 +5,7 @@ import java.io.RandomAccessFile;
 
 public class Arquivo {
 
-    private int numRegTotal = 10;
+    private int numRegTotal = 3;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
@@ -399,6 +399,66 @@ public class Arquivo {
                 }
             }
             dist/=2;
+        }
+    }
+
+    //    [7] - Heap
+    public void heapSort() {
+        int TL, posPai, posFilhoE, posFilhoD, posMaiorF;
+        TL = filesize();
+        Registro regPai = new Registro();
+        Registro regFilhoE = new Registro();
+        Registro regFilhoD = new Registro();
+        Registro regMaiorF = new Registro();
+        Registro aux = new Registro();
+
+        while(TL > 1) {
+            posPai = TL/2 - 1;
+            while(posPai >= 0) {
+                posFilhoE = 2*posPai + 1;
+                posFilhoD = posFilhoE +1;
+                seekArq(posFilhoE);
+                regFilhoE.leDoArq(arquivo);
+                if(posFilhoD < TL) {
+                    regFilhoD.leDoArq(arquivo);
+                    comp++;
+                    if(regFilhoE.getNumero() > regFilhoD.getNumero()) {
+                        posMaiorF = posFilhoE;
+                        regMaiorF.setNumero(regFilhoE.getNumero());
+                    } else {
+                        posMaiorF = posFilhoD;
+                        regMaiorF.setNumero(regFilhoD.getNumero());
+                    }
+                } else {
+                    posMaiorF = posFilhoE;
+                    regMaiorF.setNumero(regFilhoE.getNumero());
+                }
+
+                seekArq(posPai);
+                regPai.leDoArq(arquivo);
+                comp++;
+                if(regMaiorF.getNumero() > regPai.getNumero()) {
+                        mov++;
+                        seekArq(posMaiorF);
+                        regPai.gravaNoArq(arquivo);
+                        mov++;
+                        seekArq(posPai);
+                        regMaiorF.gravaNoArq(arquivo);
+                }
+                posPai--;
+            }
+            seekArq(0);
+            regMaiorF.leDoArq(arquivo);
+            seekArq(TL-1);
+            aux.leDoArq(arquivo);
+
+            mov++;
+            seekArq(0);
+            aux.gravaNoArq(arquivo);
+            mov++;
+            seekArq(TL-1);
+            regMaiorF.gravaNoArq(arquivo);
+            TL--;
         }
     }
 

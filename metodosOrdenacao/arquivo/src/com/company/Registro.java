@@ -9,9 +9,7 @@ public class Registro {
     private char lixo[] = new char[tf]; //2044 bytes
 
 
-    public Registro()
-    {
-
+    public Registro() {
     }
 
     public Registro(int numero) {

@@ -378,7 +378,55 @@ public class Principal {
                 compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
                 compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 
+        // ---------------------------------------
+
+        // --- HELPSORT ---
+
         // - Arquivo Ordenado
+        auxOrd.copiaArquivo(arqOrd);
+        auxOrd.initComp();
+        auxOrd.initMov();
+        tini = System.currentTimeMillis();
+        auxOrd.heapSort();
+        tfim = System.currentTimeMillis();
+        compO = auxOrd.getComp();
+        movO = auxOrd.getMov();
+        ttotalO = (tfim - tini)/1000;
+        ordCompEqua = 0;
+        ordMovEqua = 0;
+
+        //Arquivo Reverso
+        auxRev.copiaArquivo(arqRev);
+        auxRev.initComp();
+        auxRev.initMov();
+        tini = System.currentTimeMillis();
+        auxRev.heapSort();
+        tfim = System.currentTimeMillis();
+        ttotalRev = (tfim - tini)/1000;
+        compRev = auxRev.getComp();
+        movRev = auxRev.getMov();
+        revCompEqua = 0;
+        revMovEqua = 0;
+
+        //Arquivo Randomico
+        auxRand.copiaArquivo(arqRand);
+        auxRand.initComp();
+        auxRand.initMov();
+        tini = System.currentTimeMillis();
+        auxRand.heapSort();
+        tfim = System.currentTimeMillis();
+        ttotalRand = (tfim-tini)/1000;
+        compRand = auxRand.getComp();
+        movRand = auxRand.getMov();
+        randCompEqua = 0;
+        randMovEqua = 0;
+
+        //grava na tabela informacoes os dados extraídos das execucoes do método - Insercao Direta
+        gravaLinhaTabela("Heap", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+
+        // ---------------------------------------
 
         // --- TESTE ---
 
@@ -386,7 +434,7 @@ public class Principal {
 //        System.out.println("\nSEM ORDENAR ->");
 //        arqRev.exibirArq();
 //        System.out.println("\nORDENADO -> ");
-//        arqRev.shellSort();
+//        arqRev.heapSort();
 //        arqRev.exibirArq();
 
 
