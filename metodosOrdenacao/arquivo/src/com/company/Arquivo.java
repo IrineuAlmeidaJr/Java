@@ -851,35 +851,111 @@ public class Arquivo {
 
     //    [12] - COUNTING -- Não está funcionando
     public void countingSort(){
-        int j;
-        Arquivo temp = new Arquivo("temp.dat");
-        Registro reg1 = new Registro();
+        int j, posTemp, posSaida, numAux, maiorElem, TL, soma;
+        Arquivo temp = new Arquivo("tempCounting.dat");
+        Arquivo saida = new Arquivo("saidaCounting.dat");
+        Registro reg = new Registro();
+        TL = filesize();
 
-        for(int i = 0; i < filesize(); i++) {
+        // Encontra maior número
+        seekArq(0);
+        reg.leDoArq(arquivo);
+        maiorElem = reg.getNumero();
+        for(int i=1; i < TL; i++) {
             seekArq(i);
-            reg1.leDoArq(arquivo);
-            temp.seekArq(reg1.getNumero());
-            j = reg1.getNumero();
-            reg1.leDoArq(temp.arquivo);
-            reg1 = new Registro(reg1.getNumero()+1);
-            temp.seekArq(j);
-            mov++;
-            reg1.gravaNoArq(temp.arquivo);
-        }
-        int i = 0;
-        for(j = 0; j <= numRegTotal; j++) {
-            temp.seekArq(j);
-            reg1.leDoArq(temp.arquivo);
-            for(int k = reg1.getNumero(); k > 0; k--) {
-                seekArq(i);
-                reg1 = new Registro(j);
-                mov++;
-                reg1.gravaNoArq(arquivo);
-                seekArq(j);
-                reg1.leDoArq(arquivo);
-                i++;
+            reg.leDoArq(arquivo);
+            if(reg.getNumero() > maiorElem) {
+                maiorElem = reg.getNumero();
             }
         }
+
+        // Cria arquivo com número da maior posição encontrada
+        temp.truncate(0);
+        for(int i = 0; i < maiorElem; i ++) {
+            reg.setNumero(0);
+            reg.gravaNoArq(temp.getFile());
+        }
+
+        // Verifica frequência
+        for(int i = 0; i < TL; i++) {
+            seekArq(i);
+            reg.leDoArq(arquivo);
+            posTemp = reg.getNumero() - 1;
+            temp.seekArq(posTemp);
+            reg.leDoArq(temp.getFile());
+            reg.setNumero(reg.getNumero() + 1);
+            temp.seekArq(posTemp);
+            reg.gravaNoArq(temp.getFile());
+        }
+
+        for(int i = 1; i < maiorElem; i++) {
+            temp.seekArq(i-1);
+            reg.leDoArq(temp.getFile());
+            soma = 0;
+            soma += reg.getNumero();
+            reg.leDoArq(temp.getFile());
+            soma += reg.getNumero();
+            // Posição recebe a soma do anterior com atual
+            reg.setNumero(soma);
+            temp.seekArq(i);
+            reg.gravaNoArq(temp.getFile());
+        }
+
+        for(int i = TL-1; i >= 0; i--) {
+            seekArq(i);
+            reg.leDoArq(arquivo);
+            numAux = reg.getNumero();
+            posTemp = reg.getNumero() - 1;
+            temp.seekArq(posTemp);
+            reg.leDoArq(temp.getFile());
+            posSaida = reg.getNumero() -1;
+            saida.seekArq(posSaida);
+            reg.setNumero(numAux);
+            reg.gravaNoArq(saida.getFile());
+
+            temp.seekArq(posTemp);
+            reg.leDoArq(temp.getFile());
+            numAux = reg.getNumero();
+            numAux--;
+            reg.setNumero(numAux);
+            temp.seekArq(posTemp);
+            reg.gravaNoArq(temp.getFile());
+        }
+
+        for(int i=0; i<TL; i++){
+            saida.seekArq(i);
+            reg.leDoArq(saida.getFile());
+            seekArq(i);
+            reg.gravaNoArq(arquivo);
+        }
+
+////         ABAIXO FOI DA INTERNET -- NÃO ENTENDI -->
+//        for(int i = 0; i < filesize(); i++) {
+//            seekArq(i);
+//            reg.leDoArq(arquivo);
+//            posTemp = reg.getNumero();
+//            temp.seekArq(posTemp);
+//            reg.leDoArq(temp.getFile());
+//            reg = new Registro(reg.getNumero()+1);
+//            temp.seekArq(posTemp);
+//            mov++;
+//            reg.gravaNoArq(temp.getFile());
+//        }
+//        int i = 0;
+//        for(j = 0; j <= maiorElem+1; j++) {
+//            temp.seekArq(j);
+//            reg.leDoArq(temp.getFile());
+//            for(int k = reg.getNumero(); k > 0; k--) {
+//                seekArq(i);
+//                reg = new Registro(j);
+//                mov++;
+//                reg.gravaNoArq(arquivo);
+//                seekArq(j);
+//                reg.leDoArq(arquivo);
+//                i++;
+//            }
+//        }
+//        truncate(TL);
     }
 
 
