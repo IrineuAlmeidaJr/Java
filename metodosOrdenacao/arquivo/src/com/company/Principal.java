@@ -104,7 +104,7 @@ public class Principal {
 //        auxOrd.initComp();
 //        auxOrd.initMov();
 //        tini = System.currentTimeMillis();
-//        auxOrd.insersaoBinaria();
+//        auxOrd.insercaoBinaria();
 //        tfim = System.currentTimeMillis();
 //        compO = auxOrd.getComp();
 //        movO = auxOrd.getMov();
@@ -117,7 +117,7 @@ public class Principal {
 //        auxRev.initComp();
 //        auxRev.initMov();
 //        tini = System.currentTimeMillis();
-//        auxRev.insersaoBinaria();
+//        auxRev.insercaoBinaria();
 //        tfim = System.currentTimeMillis();
 //        ttotalRev = (tfim - tini)/1000;
 //        compRev = auxRev.getComp();
@@ -130,7 +130,7 @@ public class Principal {
 //        auxRand.initComp();
 //        auxRand.initMov();
 //        tini = System.currentTimeMillis();
-//        auxRand.insersaoBinaria();
+//        auxRand.insercaoBinaria();
 //        tfim = System.currentTimeMillis();
 //        ttotalRand = (tfim-tini)/1000;
 //        compRand = auxRand.getComp();
@@ -688,8 +688,8 @@ public class Principal {
         System.out.println("\nSEM ORDENAR ->");
         arqRand.exibirArq();
         System.out.println("\nORDENADO -> ");
-        arqRand.countingSort();
-        arqRand.exibirArq();
+        arqRand.buckedSort();
+//        arqRand.exibirArq();
 //
 //        // --> TESTE COM TEMPO
 //        auxRev.copiaArquivo(arqRev);

@@ -1,2 +1,4 @@
 Metodos Ordenacao  |              Arquivo Ordenado                             |                  Arquivo em Ordem Reversa                         |                    Arquivo Randomico                            |
                    | Comp.Prog. | Comp.Equa. |  Mov.Prog | Mov.Equa. |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog  |  Mov.Equa.  |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog |  Mov.Equa. |  Tempo  |
+   Insercao Direta |         7  |  7,000000  |        0  | 21,000000 |      0  |          28  |   17,000000  |         35  |  42,000000  |      0  |          27  |   17,000000  |        30  | 31,000000  |      0  |
+  Insercao Binaria |        40  |  3,224720  |        0  | 21,000000 |      0  |          36  |    3,224720  |         35  |  42,000000  |      0  |          36  |    3,224720  |        30  | 31,000000  |      0  |
