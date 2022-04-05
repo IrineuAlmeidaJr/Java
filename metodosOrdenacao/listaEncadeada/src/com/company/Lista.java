@@ -62,7 +62,7 @@ public class Lista {
         }
     }
 
-    public int buscaMaior() {
+    private int buscaMaior() {
         int maior;
         No i = inicio;
         maior = inicio.getInfo();
@@ -158,7 +158,7 @@ public class Lista {
     public void selecaoDireta() {
         int menor;
         No i, j, posMenor;
-        i = inicio; 
+        i = inicio;
         while(i.getProx() != null) {
             menor = i.getInfo(); /// Achou não pega primeira posição testar
             posMenor = i;
@@ -589,7 +589,7 @@ public class Lista {
     }
 
     // - Radix
-    public void countingSortRadix(int divisor, int base) {
+    private void countingSortRadix(int divisor, int base) {
         // Vai ter que fazer o counting numero por número,
         // pega a unidade, depois na segunda passagem pega a
         // dezena e depois pega o resto, assim, por diante,
@@ -657,11 +657,28 @@ public class Lista {
             divisor *= 10;
             maior /= divisor;
         }
-
-
         // Vou dividindo o maior até ele chegar a ser menor que 10,
         // essa é a forma de saber quantas vezes eu irei repetir
+    }
 
+    // - Comb Sort
+    public void combSort() {
+        int gap, aux, TL = contaElem();
+        No reg1, reg2;
+
+        gap = (int) (TL / 1.3);
+        while(gap != 0) {
+            for (int i = 0; i < TL - gap; i++) {
+                reg1 = retornaCaixa(inicio, i);
+                reg2 = retornaCaixa(inicio, i + gap);
+                if (reg1.getInfo() > reg2.getInfo()) {
+                    aux = reg1.getInfo();
+                    reg1.setInfo(reg2.getInfo());
+                    reg2.setInfo(aux);
+                }
+            }
+            gap /= 1.3;
+        }
     }
 
 
