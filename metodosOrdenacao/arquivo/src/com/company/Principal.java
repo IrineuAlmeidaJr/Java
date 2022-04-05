@@ -577,7 +577,7 @@ public class Principal {
 
         // ---------------------------------------
 
-        // --- COUNTING -- ### Não está funcionando correto
+        // --- COUNTING --
 
         // - Arquivo Ordenado
 //        auxOrd.copiaArquivo(arqOrd);
@@ -624,10 +624,106 @@ public class Principal {
 //                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 //
 //        // ---------------------------------------
-
-        // --- GNOME --
-
-        // - Arquivo Ordenado
+//
+//        // --- BUCKED SORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Buked
+//        gravaLinhaTabela("Bucked", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- RADIX --
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.radixSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.radixSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.radixSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
+//        gravaLinhaTabela("Radix", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- GNOME --
+//
+//        // - Arquivo Ordenado
 //        auxOrd.copiaArquivo(arqOrd);
 //        auxOrd.initComp();
 //        auxOrd.initMov();
@@ -670,10 +766,57 @@ public class Principal {
 //        gravaLinhaTabela("Gnome", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
 //                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
 //                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-
+//
+//
+//        // ---------------------------------------
+//
+//        // --- COMB SORT --
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.combSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.combSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.combSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
+//        gravaLinhaTabela("Comb", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
 
 
 
@@ -688,8 +831,8 @@ public class Principal {
         System.out.println("\nSEM ORDENAR ->");
         arqRand.exibirArq();
         System.out.println("\nORDENADO -> ");
-        arqRand.buckedSort();
-//        arqRand.exibirArq();
+        arqRand.combSort();
+        arqRand.exibirArq();
 //
 //        // --> TESTE COM TEMPO
 //        auxRev.copiaArquivo(arqRev);

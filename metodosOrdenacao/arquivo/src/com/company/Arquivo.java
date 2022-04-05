@@ -147,6 +147,23 @@ public class Arquivo {
         }
     }
 
+    public int buscaMaior() {
+        int maior;
+        Registro reg = new Registro();
+        seekArq(0);
+        reg.leDoArq(arquivo);
+        maior = reg.getNumero();
+        for(int i=1; !eof(); i++) {
+            seekArq(i);
+            reg.leDoArq(arquivo);
+            if(reg.getNumero() > maior) {
+                maior = reg.getNumero();
+            }
+        }
+
+        return maior;
+    }
+
     // Métodos Ordenação
 
     //    [1] - Inserção Direta
@@ -851,7 +868,7 @@ public class Arquivo {
 
     //    [12] - COUNTING
     public void countingSort(){
-        int j, posFreq, posSaida, numAux, maiorElem, TL, soma;
+        int posFreq, posSaida, numAux, maiorElem, TL, soma;
         Arquivo freq = new Arquivo("tempCounting.dat");
         Arquivo saida = new Arquivo("saidaCounting.dat");
         Registro reg = new Registro();
@@ -860,14 +877,7 @@ public class Arquivo {
         // Encontra maior número
         seekArq(0);
         reg.leDoArq(arquivo);
-        maiorElem = reg.getNumero();
-        for(int i=1; i < TL; i++) {
-            seekArq(i);
-            reg.leDoArq(arquivo);
-            if(reg.getNumero() > maiorElem) {
-                maiorElem = reg.getNumero();
-            }
-        }
+        maiorElem = buscaMaior();
 
         // Cria arquivo com número da maior posição encontrada
         freq.truncate(0);
@@ -901,6 +911,7 @@ public class Arquivo {
             reg.gravaNoArq(freq.getFile());
         }
 
+        // Preenche arquivo saida na ordem correta
         for(int i = TL-1; i >= 0; i--) {
             seekArq(i);
             reg.leDoArq(arquivo);
@@ -922,44 +933,20 @@ public class Arquivo {
             reg.gravaNoArq(freq.getFile());
         }
 
+        // Grava no arquivo saida no arquivo principal
         for(int i=0; i<TL; i++){
             saida.seekArq(i);
             reg.leDoArq(saida.getFile());
             seekArq(i);
             reg.gravaNoArq(arquivo);
         }
-
-////         ABAIXO FOI DA INTERNET -- NÃO ENTENDI -->
-//        for(int i = 0; i < filesize(); i++) {
-//            seekArq(i);
-//            reg.leDoArq(arquivo);
-//            posTemp = reg.getNumero();
-//            temp.seekArq(posTemp);
-//            reg.leDoArq(temp.getFile());
-//            reg = new Registro(reg.getNumero()+1);
-//            temp.seekArq(posTemp);
-//            mov++;
-//            reg.gravaNoArq(temp.getFile());
-//        }
-//        int i = 0;
-//        for(j = 0; j <= maiorElem+1; j++) {
-//            temp.seekArq(j);
-//            reg.leDoArq(temp.getFile());
-//            for(int k = reg.getNumero(); k > 0; k--) {
-//                seekArq(i);
-//                reg = new Registro(j);
-//                mov++;
-//                reg.gravaNoArq(arquivo);
-//                seekArq(j);
-//                reg.leDoArq(arquivo);
-//                i++;
-//            }
-//        }
-//        truncate(TL);
     }
 
     //    [13] - BUCKED SORT
-    public void isercaoDiretaBucked() {
+    private void isercaoDiretaBucked() {
+        // --- Tive criar um novo método para inserção direta
+        // Bucked porque na primeira posição do arquivo ele guarda
+        // o seu número de elemento que estão dentro do arquivo.
         int pos, TL;
         Registro reg = new Registro();
         Registro aux = new Registro();
@@ -994,30 +981,14 @@ public class Arquivo {
         }
     }
 
-    public int buscaMaior() {
-        int maior;
-        Registro reg = new Registro();
-        seekArq(0);
-        reg.leDoArq(arquivo);
-        maior = reg.getNumero();
-        for(int i=1; !eof(); i++) {
-            seekArq(i);
-            reg.leDoArq(arquivo);
-            if(reg.getNumero() > maior) {
-                maior = reg.getNumero();
-            }
-        }
 
-        return maior;
-    }
-
-    public void gravarArqBucked(Arquivo arq, int[] posGravar) {
+    private void gravarArqBucked(Arquivo arq, int[] posGravar) {
         Registro reg = new Registro();
         seekArq(posGravar[0]);
         arq.seekArq(1);
         while (!arq.eof()) {
+            mov++;
             reg.leDoArq(arq.getFile());
-            System.out.println(reg.getNumero());
             reg.gravaNoArq(arquivo);
             posGravar[0]++;
         }
@@ -1052,7 +1023,7 @@ public class Arquivo {
 
         if(TL > 0) {
             maiorValor = buscaMaior();
-            int incremento = maiorValor / qtdeArq;
+            int limiteSuperior = maiorValor / qtdeArq;
 
             // Dividir recipientes
             // -> a primeira posição do arquivo guarda seu TL,
@@ -1061,46 +1032,59 @@ public class Arquivo {
             for(int j = 0; j < TL; j++) {
                 seekArq(j);
                 reg.leDoArq(arquivo);
-                if(reg.getNumero() <= incremento) {
+
+                if(reg.getNumero() <= limiteSuperior) {
+                    comp++;
                     bucked1.seekArq(0);
                     regBucked.leDoArq(bucked1.getFile());
 
+                    mov++;
                     bucked1.seekArq(regBucked.getNumero()+1);
                     reg.gravaNoArq(bucked1.getFile());
 
+                    mov++;
                     bucked1.seekArq(0);
                     regBucked.setNumero(regBucked.getNumero()+1);
                     regBucked.gravaNoArq(bucked1.getFile());
-                } else if(reg.getNumero() <= incremento*2) {
+                } else if(reg.getNumero() <= limiteSuperior*2) {
+                    comp++;
                     bucked2.seekArq(0);
                     regBucked.leDoArq(bucked2.getFile());
 
+                    mov++;
                     bucked2.seekArq(regBucked.getNumero()+1);
                     reg.gravaNoArq(bucked2.getFile());
 
+                    mov++;
                     bucked2.seekArq(0);
                     regBucked.setNumero(regBucked.getNumero()+1);
                     regBucked.gravaNoArq(bucked2.getFile());
-                }  else if(reg.getNumero() <= incremento*3) {
+                }  else if(reg.getNumero() <= limiteSuperior*3) {
+                    comp++;
                     bucked3.seekArq(0);
                     regBucked.leDoArq(bucked3.getFile());
 
+                    mov++;
                     bucked3.seekArq(regBucked.getNumero()+1);
                     reg.gravaNoArq(bucked3.getFile());
 
+                    mov++;
                     bucked3.seekArq(0);
                     regBucked.setNumero(regBucked.getNumero()+1);
                     regBucked.gravaNoArq(bucked3.getFile());
-                } else if(reg.getNumero() <= incremento*4 + 3) {
+                } else if(reg.getNumero() <= limiteSuperior*4 + 3) {
+                    comp++;
                     // Tive colocar + 3 para funcionar, em tese iria
                     // funcionar com + 1 para caso em que a divisão desse
                     // número inteiro
                     bucked4.seekArq(0);
                     regBucked.leDoArq(bucked4.getFile());
 
+                    mov++;
                     bucked4.seekArq(regBucked.getNumero()+1);
                     reg.gravaNoArq(bucked4.getFile());
 
+                    mov++;
                     bucked4.seekArq(0);
                     regBucked.setNumero(regBucked.getNumero()+1);
                     regBucked.gravaNoArq(bucked4.getFile());
@@ -1131,33 +1115,127 @@ public class Arquivo {
         }
     }
 
+    // [14] - RADIX
+    private void countingSortRadix(int divisor, int base) {
+        int posFreq, posSaida, numAux, maiorElem, TL, soma;
+        Arquivo freq = new Arquivo("tempCounting.dat");
+        Arquivo saida = new Arquivo("saidaCounting.dat");
+        Registro reg = new Registro();
+        TL = filesize();
 
-    //    [15] - GNOME
-    public void gnomeSort() {
-        int i = 0;
+        // Inicializa arquivo de frequência, tamanho agora aqui é o
+        // range dos números 0...9
+        freq.truncate(0);
+        for(int i = 0; i < base; i ++) {
+            reg.setNumero(0);
+            mov++;
+            reg.gravaNoArq(freq.getFile());
+        }
+
+        // Verifica frequência
+        for(int i = 0; i < TL; i++) {
+            seekArq(i);
+            reg.leDoArq(arquivo);
+            posFreq = (reg.getNumero()/divisor) % base;
+            freq.seekArq(posFreq);
+            reg.leDoArq(freq.getFile());
+            reg.setNumero(reg.getNumero() + 1);
+            mov++;
+            freq.seekArq(posFreq);
+            reg.gravaNoArq(freq.getFile());
+        }
+
+        for(int i = 1; i < base; i++) {
+            freq.seekArq(i-1);
+            reg.leDoArq(freq.getFile());
+            soma = 0;
+            soma += reg.getNumero();
+            reg.leDoArq(freq.getFile());
+            soma += reg.getNumero();
+            // Posição recebe a soma do anterior com atual
+            reg.setNumero(soma);
+            mov++;
+            freq.seekArq(i);
+            reg.gravaNoArq(freq.getFile());
+        }
+
+        // Preenche arquivo saida na ordem correta
+        for(int i = TL-1; i >= 0; i--) {
+            seekArq(i);
+            reg.leDoArq(arquivo);
+            numAux = reg.getNumero();
+            posFreq = (numAux/divisor) % base;
+            freq.seekArq(posFreq);
+            reg.leDoArq(freq.getFile());
+            posSaida = reg.getNumero() - 1;
+            saida.seekArq(posSaida);
+            reg.setNumero(numAux);
+            mov++;
+            reg.gravaNoArq(saida.getFile());
+
+            freq.seekArq(posFreq);
+            reg.leDoArq(freq.getFile());
+            numAux = reg.getNumero();
+            numAux--;
+            reg.setNumero(numAux);
+            freq.seekArq(posFreq);
+            mov++;
+            reg.gravaNoArq(freq.getFile());
+        }
+
+        // Grava no arquivo saida no arquivo principal
+        for(int i=0; i<TL; i++){
+            saida.seekArq(i);
+            reg.leDoArq(saida.getFile());
+            seekArq(i);
+            mov++;
+            reg.gravaNoArq(arquivo);
+        }
+
+    }
+
+    public void radixSort(){
+        int maior, divisor = 1;
+
+        maior = buscaMaior();
+        while(maior > 0) {
+            countingSortRadix(divisor, 10);
+            divisor *= 10;
+            maior /= divisor;
+        }
+        // Vou dividindo o maior até ele chegar a ser menor que 10,
+        // essa é a forma de saber quantas vezes eu irei repetir
+    }
+
+    // [15] - COMB SORT
+    public void combSort() {
+        // É um bolha melhorado, que tem um gap, até onde vai, não
+        // tendo que ir até o final sempre.
+        int gap, aux, TL = filesize();
         Registro reg1 = new Registro();
         Registro reg2 = new Registro();
-        while(i < filesize()) {
-            if(i == 0) {
-                i++;
-            }
-            seekArq(i);
-            reg1.leDoArq(arquivo);
-            seekArq(i-1);
-            reg2.leDoArq(arquivo);
-            comp++;
-            if(reg1.getNumero() >= reg2.getNumero()) {
-                i++;
-            } else {
-                seekArq(i-1);
-                mov++;
-                reg1.gravaNoArq(arquivo);
-                mov++;
+
+        gap = (int) (TL / 1.3);
+        while(gap != 0) {
+            for (int i = 0; i < TL - gap; i++) {
                 seekArq(i);
-                reg2.gravaNoArq(arquivo);
-                i--;
+                reg1.leDoArq(arquivo);
+                seekArq(i+gap);
+                reg2.leDoArq(arquivo);
+                if (reg1.getNumero() > reg2.getNumero()) {
+                    seekArq(i);
+                    reg2.gravaNoArq(arquivo);
+                    seekArq(i+gap);
+                    reg1.gravaNoArq(arquivo);
+                }
             }
+            gap /= 1.3;
         }
+    }
+
+    //    [16] - GNOME
+    public void gnomeSort() {
+
     }
 
 
