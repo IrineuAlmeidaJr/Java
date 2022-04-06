@@ -1,5 +1,2 @@
 Metodos Ordenacao  |              Arquivo Ordenado                             |                  Arquivo em Ordem Reversa                         |                    Arquivo Randomico                            |
                    | Comp.Prog. | Comp.Equa. |  Mov.Prog | Mov.Equa. |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog  |  Mov.Equa.  |  Tempo  |  Comp.Prog.  |  Comp.Equa.  |   Mov.Prog |  Mov.Equa. |  Tempo  |
-            Bucked |       512  |  0,000000  |     1536  |  0,000000 |     27  |         512  |    0,000000  |       1536  |   0,000000  |    478  |         512  |    0,000000  |      1536  |  0,000000  |    204  |
-             Radix |         0  |  0,000000  |     4134  |  0,000000 |     44  |           0  |    0,000000  |       4134  |   0,000000  |     39  |           0  |    0,000000  |      6201  |  0,000000  |     58  |
-              Comb |      8577  |  0,000000  |        0  |  0,000000 |     36  |        8577  |    0,000000  |       1480  |   0,000000  |     58  |        8577  |    0,000000  |      3890  |  0,000000  |     81  |

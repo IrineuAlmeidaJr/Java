@@ -684,6 +684,8 @@ public class Lista {
 
 
     public void radixSort(){
+        // Vou comparando por unidade, dezena, centena e etc, para
+        // ir aplicando o couting ou bucked, ai pode escolher
         int maior, divisor = 1;
         No i = inicio;
         maior = buscaMaior();
@@ -698,6 +700,7 @@ public class Lista {
 
     // - Comb Sort
     public void combSort() {
+        // Bolha melhorado
         int gap, aux, TL = contaElem();
         No reg1, reg2;
 
@@ -738,7 +741,76 @@ public class Lista {
         }
     }
 
+    // - Tim
+    private void insercaoDiretaTim(No ini, No fim){
+        int temp;
+        No j, aux = null;
+        for(No i = ini.getProx(); i != fim.getProx(); i = i.getProx()){
+            temp = i.getInfo();
+            j = i.getAnt();
+            while(j != inicio && temp <= j.getInfo()){
+                j.getProx().setInfo(j.getInfo());
+                j = j.getAnt();
+            }
+            if(temp <= j.getInfo()){
+                j.getProx().setInfo(j.getInfo());
+                j.setInfo(temp);
+            } else {
+                j.getProx().setInfo(temp);
+            }
+        }
+    }
+
+    private void mergeTim(int ini, int meio, int fim){
+        int i,j,k;
+        int n1 = meio - ini + 1;
+        int n2 = fim - meio;
+        Lista lista = new Lista();
+        Lista lista2 = new Lista();
+        inicializaLista(0, n1, lista);
+        inicializaLista(0, n2, lista2);
+        for(i = 0; i < n1; i++) {
+            lista.retornaCaixa(lista.inicio, i).setInfo(retornaCaixa(inicio, ini+1).getInfo());
+        }
+        for(j = 0; j < n2; j++) {
+            lista2.retornaCaixa(lista2.inicio, j)
+                    .setInfo(retornaCaixa(inicio, meio + 1 + j).getInfo());
+        }
+        i = j = 0;
+        k = ini;
+        while(i < n1 && j < n2) {
+            if(lista.retornaCaixa(lista.inicio, i).getInfo()
+                    <= lista2.retornaCaixa(lista2.inicio, j).getInfo()) {
+                retornaCaixa(inicio, k).setInfo(lista.retornaCaixa(lista.inicio, i++).getInfo());
+            } else {
+                retornaCaixa(inicio, k).setInfo(lista2.retornaCaixa(lista2.inicio, j++).getInfo());
+            }
+            k++;
+        }
+        while(i < n1) {
+            retornaCaixa(inicio, k++).setInfo(lista.retornaCaixa(lista.inicio, i).getInfo());
+        }
+        while(j < n2) {
+            retornaCaixa(inicio, k++).setInfo(lista2.retornaCaixa(lista2.inicio, j).getInfo());
+        }
+    }
 
 
+    public void timSort(){
+        int divisor = 32, TL = contaElem();
+        for(int i = 0; i<TL; i+=divisor) {
+            insercaoDiretaTim(retornaCaixa(inicio, i), retornaCaixa(inicio,
+                    Math.min(i+divisor-1, (TL-1))));
+        }
+        for(int n = divisor; n < TL; n = 2*n) {
+            for(int ini = 0; ini < TL; ini += 2*n){
+                int meio = ini + n - 1;
+                int fim = Math.min(ini + 2 * n - 1, TL-1);
+                if(meio < fim)
+                    mergeTim(ini, meio, fim);
+            }
+        }
+
+    }
 
 }

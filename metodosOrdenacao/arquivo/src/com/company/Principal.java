@@ -526,10 +526,10 @@ public class Principal {
 //        gravaLinhaTabela("Merge 1a Implemen", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
 //                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
 //                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-//        // --- MERGE 2ª IMPLEMENTAÇÃO - Não está funcionando correto
+//
+//        // ---------------------------------------
+//
+//        // --- MERGE 2ª IMPLEMENTAÇÃO -
 //
 //        // - Arquivo Ordenado
 //        auxOrd.copiaArquivo(arqOrd);
@@ -624,148 +624,148 @@ public class Principal {
 //                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 //
 //        // ---------------------------------------
-
-        // --- BUCKED SORT --- FOI(X)
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.buckedSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.buckedSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.buckedSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Buked
-        gravaLinhaTabela("Bucked", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- RADIX -- FOI(X)
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.radixSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.radixSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.radixSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
-        gravaLinhaTabela("Radix", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
-
-        // ---------------------------------------
-
-        // --- COMB SORT -- FOI(X)
-
-        // - Arquivo Ordenado
-        auxOrd.copiaArquivo(arqOrd);
-        auxOrd.initComp();
-        auxOrd.initMov();
-        tini = System.currentTimeMillis();
-        auxOrd.combSort();
-        tfim = System.currentTimeMillis();
-        compO = auxOrd.getComp();
-        movO = auxOrd.getMov();
-        ttotalO = (tfim - tini)/1000;
-        ordCompEqua = 0;
-        ordMovEqua = 0;
-
-        //Arquivo Reverso
-        auxRev.copiaArquivo(arqRev);
-        auxRev.initComp();
-        auxRev.initMov();
-        tini = System.currentTimeMillis();
-        auxRev.combSort();
-        tfim = System.currentTimeMillis();
-        ttotalRev = (tfim - tini)/1000;
-        compRev = auxRev.getComp();
-        movRev = auxRev.getMov();
-        revCompEqua = 0;
-        revMovEqua = 0;
-
-        //Arquivo Randomico
-        auxRand.copiaArquivo(arqRand);
-        auxRand.initComp();
-        auxRand.initMov();
-        tini = System.currentTimeMillis();
-        auxRand.combSort();
-        tfim = System.currentTimeMillis();
-        ttotalRand = (tfim-tini)/1000;
-        compRand = auxRand.getComp();
-        movRand = auxRand.getMov();
-        randCompEqua = 0;
-        randMovEqua = 0;
-
-        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
-        gravaLinhaTabela("Comb", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
-                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
-                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // --- BUCKED SORT ---
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.buckedSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Buked
+//        gravaLinhaTabela("Bucked", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- RADIX --
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.radixSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.radixSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.radixSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
+//        gravaLinhaTabela("Radix", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
+//
+//        // ---------------------------------------
+//
+//        // --- COMB SORT --
+//
+//        // - Arquivo Ordenado
+//        auxOrd.copiaArquivo(arqOrd);
+//        auxOrd.initComp();
+//        auxOrd.initMov();
+//        tini = System.currentTimeMillis();
+//        auxOrd.combSort();
+//        tfim = System.currentTimeMillis();
+//        compO = auxOrd.getComp();
+//        movO = auxOrd.getMov();
+//        ttotalO = (tfim - tini)/1000;
+//        ordCompEqua = 0;
+//        ordMovEqua = 0;
+//
+//        //Arquivo Reverso
+//        auxRev.copiaArquivo(arqRev);
+//        auxRev.initComp();
+//        auxRev.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRev.combSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRev = (tfim - tini)/1000;
+//        compRev = auxRev.getComp();
+//        movRev = auxRev.getMov();
+//        revCompEqua = 0;
+//        revMovEqua = 0;
+//
+//        //Arquivo Randomico
+//        auxRand.copiaArquivo(arqRand);
+//        auxRand.initComp();
+//        auxRand.initMov();
+//        tini = System.currentTimeMillis();
+//        auxRand.combSort();
+//        tfim = System.currentTimeMillis();
+//        ttotalRand = (tfim-tini)/1000;
+//        compRand = auxRand.getComp();
+//        movRand = auxRand.getMov();
+//        randCompEqua = 0;
+//        randMovEqua = 0;
+//
+//        //grava na tabela informacoes os dados extraídos das execucoes do método - Gnome
+//        gravaLinhaTabela("Comb", compO, ordCompEqua, movO, ordMovEqua,ttotalO,
+//                compRev, revCompEqua, movRev, revMovEqua, ttotalRev,
+//                compRand, randCompEqua, movRand, randMovEqua, ttotalRand);
 //
 //        // ---------------------------------------
 //
@@ -819,19 +819,14 @@ public class Principal {
 //        // ---------------------------------------
 
 
-
-
-
-        // ---------------------------------------
-
         // --- TESTE ---
 
         // - Arquivo Ordenado
-//        System.out.println("\nSEM ORDENAR ->");
-//        arqRand.exibirArq();
-//        System.out.println("\nORDENADO -> ");
-//        arqRand.mergeSort2();
-//        arqRand.exibirArq();
+        System.out.println("\nSEM ORDENAR ->");
+        arqRev.exibirArq();
+        System.out.println("\nORDENADO -> ");
+        arqRev.timSort();
+        arqRev.exibirArq();
 //
 //        // --> TESTE COM TEMPO
 //        auxRev.copiaArquivo(arqRev);
@@ -847,18 +842,6 @@ public class Principal {
 //        tfim = System.currentTimeMillis();
 //        System.out.println("\nORDENADO  Quick Sem Pivo RECURSIVO-> ");
 //        System.out.println("TEMPO FINAL - " + (tfim-tini));
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

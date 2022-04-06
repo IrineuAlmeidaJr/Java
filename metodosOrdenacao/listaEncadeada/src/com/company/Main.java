@@ -203,6 +203,15 @@ public class Main {
                     lista.exibir();
                     scanner.nextLine();
                     break;
+                case 18:
+                    System.out.println("\n\t- - - Tim - - -" +
+                            "\n\nDesordenado -> ");
+                    lista.exibir();
+                    lista.timSort();
+                    System.out.println("\nOrdenado -> ");
+                    lista.exibir();
+                    scanner.nextLine();
+                    break;
                 case 19:
                     System.out.println("---> Nova Lista Gerada...");
                     lista.carregarValores();
