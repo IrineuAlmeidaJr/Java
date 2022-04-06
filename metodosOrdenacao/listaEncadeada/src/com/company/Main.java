@@ -26,8 +26,11 @@ public class Main {
                 "[13] - Counting\n" +
                 "[14] - Bucket Sort\n" +
                 "[15] - Radix Sort\n" +
+                "[16] - Comb Sort\n" +
+                "[17] - Gnome Sort\n" +
                 "\n[0] - Exibir Lista\n" +
-                "\n[20] - SAIR\n\n" +
+                "\n[19] -GERAR NOVA LISTA\n" +
+                "[20] - SAIR\n\n" +
                 "Opção Desejada: ");
         op = scanner.nextByte();
         System.out.printf("\n---------------------------------------------\n");
@@ -43,6 +46,10 @@ public class Main {
         do {
             op = menu();
             switch(op) {
+                case 0:
+                    lista.exibir();
+                    scanner.nextLine();
+                    break;
                 case 1:
                     System.out.println("\n\t- - - Inserseção Direta - - -" +
                             "\nDesordenado -> ");
@@ -142,6 +149,15 @@ public class Main {
                     lista.exibir();
                     scanner.nextLine();
                     break;
+                case 12:
+                    System.out.println("\n\t- - - Merge Sort 2 - - -" +
+                            "\n\nDesordenado -> ");
+                    lista.exibir();
+                    lista.mergeSort2();
+                    System.out.println("\nOrdenado -> ");
+                    lista.exibir();
+                    scanner.nextLine();
+                    break;
                 case 13:
                     System.out.println("\n\t- - - Counting - - -" +
                             "\n\nDesordenado -> ");
@@ -169,10 +185,31 @@ public class Main {
                     lista.exibir();
                     scanner.nextLine();
                     break;
-                case 0:
+                case 16:
+                    System.out.println("\n\t- - - Comb - - -" +
+                            "\n\nDesordenado -> ");
+                    lista.exibir();
+                    lista.combSort();
+                    System.out.println("\nOrdenado -> ");
                     lista.exibir();
                     scanner.nextLine();
                     break;
+                case 17:
+                    System.out.println("\n\t- - - Gnome - - -" +
+                            "\n\nDesordenado -> ");
+                    lista.exibir();
+                    lista.gnomeSort();
+                    System.out.println("\nOrdenado -> ");
+                    lista.exibir();
+                    scanner.nextLine();
+                    break;
+                case 19:
+                    System.out.println("---> Nova Lista Gerada...");
+                    lista.carregarValores();
+                    lista.exibir();
+                    scanner.nextLine();
+                    break;
+
             }
 
         } while(op != 20);

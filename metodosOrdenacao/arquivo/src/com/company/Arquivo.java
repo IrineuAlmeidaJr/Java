@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Arquivo {
 
-    private int numRegTotal = 8;
+    private int numRegTotal = 512;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
@@ -804,12 +804,12 @@ public class Arquivo {
             seekArq(j);
             regJ.leDoArq(arquivo);
             if(regI.getNumero() < regJ.getNumero()) {
-                seekArq(k);
+                arqAux.seekArq(k);
                 regI.gravaNoArq(arqAux.getFile());
                 k++;
                 i++;
             } else {
-                seekArq(k);
+                arqAux.seekArq(k);
                 regJ.gravaNoArq(arqAux.getFile());
                 k++;
                 j++;
@@ -818,7 +818,7 @@ public class Arquivo {
         while(i <= fim1) {
             seekArq(i);
             regI.leDoArq(arquivo);
-            seekArq(k);
+            arqAux.seekArq(k);
             regI.gravaNoArq(arqAux.getFile());
             k++;
             i++;
@@ -826,14 +826,14 @@ public class Arquivo {
         while(j <= fim2) {
             seekArq(j);
             regJ.leDoArq(arquivo);
-            seekArq(k);
+            arqAux.seekArq(k);
             regJ.gravaNoArq(arqAux.getFile());
             k++;
             j++;
         }
 
         for(i = 0; i < k; i++) {
-            seekArq(i);
+            arqAux.seekArq(i);
             regI.leDoArq(arqAux.getFile());
             seekArq(i + ini1);
             regI.gravaNoArq(arquivo);
@@ -883,6 +883,7 @@ public class Arquivo {
         freq.truncate(0);
         for(int i = 0; i < maiorElem; i ++) {
             reg.setNumero(0);
+            mov++;
             reg.gravaNoArq(freq.getFile());
         }
 
@@ -895,6 +896,7 @@ public class Arquivo {
             reg.leDoArq(freq.getFile());
             reg.setNumero(reg.getNumero() + 1);
             freq.seekArq(posFreq);
+            mov++;
             reg.gravaNoArq(freq.getFile());
         }
 
@@ -908,6 +910,7 @@ public class Arquivo {
             // Posição recebe a soma do anterior com atual
             reg.setNumero(soma);
             freq.seekArq(i);
+            mov++;
             reg.gravaNoArq(freq.getFile());
         }
 
@@ -922,6 +925,7 @@ public class Arquivo {
             posSaida = reg.getNumero() -1;
             saida.seekArq(posSaida);
             reg.setNumero(numAux);
+            mov++;
             reg.gravaNoArq(saida.getFile());
 
             freq.seekArq(posFreq);
@@ -930,6 +934,7 @@ public class Arquivo {
             numAux--;
             reg.setNumero(numAux);
             freq.seekArq(posFreq);
+            mov++;
             reg.gravaNoArq(freq.getFile());
         }
 
@@ -938,6 +943,7 @@ public class Arquivo {
             saida.seekArq(i);
             reg.leDoArq(saida.getFile());
             seekArq(i);
+            mov++;
             reg.gravaNoArq(arquivo);
         }
     }
@@ -1210,7 +1216,8 @@ public class Arquivo {
     // [15] - COMB SORT
     public void combSort() {
         // É um bolha melhorado, que tem um gap, até onde vai, não
-        // tendo que ir até o final sempre.
+        // tendo que ir até o final sempre. Utiliza 1.3 de gap, por
+        // segundo pesquisado seria o melhor.
         int gap, aux, TL = filesize();
         Registro reg1 = new Registro();
         Registro reg2 = new Registro();
@@ -1222,9 +1229,12 @@ public class Arquivo {
                 reg1.leDoArq(arquivo);
                 seekArq(i+gap);
                 reg2.leDoArq(arquivo);
+                comp++;
                 if (reg1.getNumero() > reg2.getNumero()) {
+                    mov++;
                     seekArq(i);
                     reg2.gravaNoArq(arquivo);
+                    mov++;
                     seekArq(i+gap);
                     reg1.gravaNoArq(arquivo);
                 }
@@ -1235,6 +1245,8 @@ public class Arquivo {
 
     //    [16] - GNOME
     public void gnomeSort() {
+
+
 
     }
 

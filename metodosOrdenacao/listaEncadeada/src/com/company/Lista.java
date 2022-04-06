@@ -57,6 +57,7 @@ public class Lista {
 
     public void carregarValores() {
         Random random = new Random();
+        inicio = fim = null;
         for(int i=0; i < 16; i++){
             inserirNoInicio(random.nextInt(10*3));
         }
@@ -499,10 +500,44 @@ public class Lista {
 
     }
 
-    // - Merge 2
+    // - Merge 2 --> Ver melhor depois
+    private void inicializaLista(int i, int TL, Lista lista) {
+        while(i<TL)
+            lista.inserirNoFinal(retornaCaixa(inicio,i++).getInfo());
+    }
 
+    private void fusao2(int ini1, int fim1, int ini2, int fim2, Lista lista) {
+        int i = ini1, j = ini2, k = 0;
+        while(i<=fim1 && j<=fim2){
+            if(retornaCaixa(inicio,i).getInfo() < retornaCaixa(inicio, j).getInfo())
+                lista.retornaCaixa(lista.inicio, k++).setInfo(retornaCaixa(inicio, i++).getInfo());
+            else
+                lista.retornaCaixa(lista.inicio, k++).setInfo(retornaCaixa(inicio, j++).getInfo());
+        }
+        while(i<=fim1)
+            lista.retornaCaixa(lista.inicio, k++).setInfo(retornaCaixa(inicio, i++).getInfo());
+        while(j<=fim2)
+            lista.retornaCaixa(lista.inicio, k++).setInfo(retornaCaixa(inicio, j++).getInfo());
+        i=0;
+        while (i < k)
+            retornaCaixa(inicio, ini1 + i).setInfo(lista.retornaCaixa(lista.inicio, i++).getInfo());
+    }
 
+    private void mergeSort2(int esq, int dir, Lista lista) {
+        if(esq<dir) {
+            int meio = (esq+dir)/2;
+            mergeSort2(esq, meio, lista);
+            mergeSort2(meio+1, dir, lista);
+            fusao2(esq, meio, meio+1, dir, lista);
+        }
+    }
 
+    public void mergeSort2(){
+        int TL = contaElem();
+        Lista lista = new Lista();
+        inicializaLista(0,TL,lista);
+        mergeSort2(0,TL-1,lista);
+    }
 
     // - Counting
     public void countingSort() {
@@ -678,6 +713,28 @@ public class Lista {
                 }
             }
             gap /= 1.3;
+        }
+    }
+
+    // - Gnome
+    public void gnomeSort() {
+        int i, aux, TL = contaElem();
+        No reg1, reg2;
+        i = 0;
+        while (i < TL) {
+            if(i == 0) {
+                i++;
+            }
+            reg1 = retornaCaixa(inicio, i);
+            reg2 = retornaCaixa(inicio, i-1);
+            if(reg1.getInfo() >= reg2.getInfo()) {
+                i++;
+            } else {
+                aux = reg1.getInfo();
+                reg1.setInfo(reg2.getInfo());
+                reg2.setInfo(aux);
+                i--;
+            }
         }
     }
 
