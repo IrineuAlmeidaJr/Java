@@ -41,6 +41,33 @@ public class Main {
         return reg;
     }
 
+    public static Registrador[] leituraReg(String titulo, int numReg) {
+        int num;
+
+        System.out.println("\n--------------------------------------\n" +
+                "\t* * * " + titulo + " * * *\n");
+        Scanner sc = new Scanner(System.in);
+
+        Registrador reg[] = new Registrador[numReg];
+        for(int i = 0; i < numReg; i++) {
+            reg[i] = new Registrador(String.valueOf((char) (65+i)), 0, 0);
+        }
+
+        System.out.printf("Deseja inserir valores no registradores ? <S/N> ");
+        if(sc.next().equalsIgnoreCase("S")) {
+            for(int i = 0; i < reg.length; i++) {
+                System.out.printf("\n\t\t REGISTRADOR %s " +
+                                "\n\t** Informe Sinal: ( 0 - POSITIVO) ( 1 - NEGATIVO) -> ",
+                        reg[i].getNome());
+                reg[i].setSinal(sc.nextInt());
+                System.out.printf("\t** Informe o Valor: ");
+                reg[i].setValor(sc.nextInt());
+            }
+        }
+
+        return reg;
+    }
+
     public static void leituraIns(List<String> listaInstrucoes) {
         String comando;
         String[] instrucaoSeparada;
@@ -289,7 +316,7 @@ public class Main {
                     exibirValorRegistrador(reg);
                     break;
                 case 2:
-                    reg = leituraReg("LEITURA - SOMA");
+                    reg = leituraReg("LEITURA - SOMA", 2);
                     if(reg.length == 2) {
                         somaNaoPreserva(reg ,listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
@@ -297,6 +324,7 @@ public class Main {
                     } else {
                         System.out.println("\n *** Exige 2 registradores para SOMA");
                     }
+                    listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 3:
                     reg = leituraReg("LEITURA - SOMA");
