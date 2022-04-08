@@ -68,6 +68,31 @@ public class Main {
         return reg;
     }
 
+    public static Registrador[] leituraRegSemSinal(String titulo, int numReg, int qtdeLeitura) {
+        int num;
+
+        System.out.println("\n--------------------------------------\n" +
+                "\t* * * " + titulo + " * * *\n");
+        Scanner sc = new Scanner(System.in);
+
+        Registrador reg[] = new Registrador[numReg];
+        for(int i = 0; i < numReg; i++) {
+            reg[i] = new Registrador(String.valueOf((char) (65+i)), 0, 0);
+        }
+
+        System.out.printf("Deseja inserir valores no registradores ? <S/N> ");
+        if(sc.next().equalsIgnoreCase("S")) {
+            for(int i = 0; i < qtdeLeitura; i++) {
+                System.out.printf("\n\t\t REGISTRADOR %s", reg[i].getNome());
+                reg[i].setSinal(0);
+                System.out.printf("\n\t** Informe o Valor: ");
+                reg[i].setValor(sc.nextInt());
+            }
+        }
+
+        return reg;
+    }
+
     public static void leituraIns(List<String> listaInstrucoes) {
         String comando;
         String[] instrucaoSeparada;
@@ -209,9 +234,9 @@ public class Main {
         }
     }
 
-    public static void exibirValorRegistrador(Registrador[] registrador) {
+    public static void exibirValorRegistrador(Registrador[] registrador, String titulo) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\n--------------------------------------\n" +
+        System.out.println("\n-----------------" + titulo  + "------------------\n" +
                 "\t* * * REGISTRADORES * * *");
         for(int i=0; i<registrador.length; i++) {
             System.out.printf("\t%s - %c%d\n", registrador[i].getNome(),
@@ -219,7 +244,26 @@ public class Main {
         }
         System.out.printf("\t- RESULTADO => %c%d",  registrador[0].getSinal() == 0 ? '+' : '-',
                 registrador[0].getValor());
-//        sc.nextLine();
+        sc.nextLine();
+    }
+
+    public static void exibirValorRegistradorMenor(Registrador[] registrador, String titulo) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n-----------------" + titulo  + "------------------\n" +
+                "\t* * * REGISTRADORES * * *");
+        for(int i=0; i<registrador.length; i++) {
+            System.out.printf("\t%s - %c%d\n", registrador[i].getNome(),
+                    registrador[i].getSinal() == 0 ? '+' : '-', registrador[i].getValor());
+        }
+        if(registrador[3].getValor() == 1) {
+            System.out.printf("\n\t- RESULTADO => A e B SÃO IGUAIS");
+        } else {
+            System.out.printf("\n\t- RESULTADO => %s MENOR",
+                    registrador[2].getValor() == 1 ? registrador[0].getNome() :
+                            registrador[1].getNome());
+        }
+
+        sc.nextLine();
     }
 
     public static byte operacoes() {
@@ -229,7 +273,8 @@ public class Main {
                 "[1] - Leitura de Instruções\n" +
                 "[2] - Soma (Precisa 2 registradores) *Sem preservar conteúdo\n" +
                 "[3] - Soma (Precisa 3 registradores) *Preservar conteúdo\n" +
-                "[4] - Multiplicação (Precisa 4 registradores)" +
+                "[4] - Multiplicação (Precisa 4 registradores)\n" +
+                "[5] - Compara menor A < B ou A <= B (Precisa 3 registradores)\n" +
                 "\n[0] - SAIR");
         return sc.nextByte();
     }
@@ -305,6 +350,24 @@ public class Main {
         listaInstrucoes.add("16: HALT");
     }
 
+    public static void verificaMenor(List<String> listaInstrucoes) {
+        listaInstrucoes.add("0: JMP0(B,7)");
+        listaInstrucoes.add("1: JMP0(A,5)");
+        listaInstrucoes.add("2: DEC(A)");
+        listaInstrucoes.add("3: DEC(B)");
+        listaInstrucoes.add("4: GOTO(0)");
+        listaInstrucoes.add("5: INC(C)");
+        listaInstrucoes.add("6: GOTO(10)");
+        // A chegou em zero primeiro que o B, então A<B, logo, VERDADEIRO .... C := C + 1
+        listaInstrucoes.add("7: JMP0(A,9)");
+        listaInstrucoes.add("8: GOTO(10)");
+        // B chegou em zero primeiro que o A, e o A não é zero, então A>B, logo, FALSO ...... C = 0
+        listaInstrucoes.add("9: INC(D)");
+        listaInstrucoes.add("10: HALT");
+        // B chegou em zero primeiro que o A, e o A é zero, então A==B, logo, VERDADEIRO ...... C := C + 1
+
+    }
+
     public static void main(String[] args) throws InterruptedException {
         /*
             ***OBS -> as instruções para fazer operações já tem o nome de seus
@@ -329,7 +392,7 @@ public class Main {
                     reg = leituraReg("LEITURA");
                     leituraIns(listaInstrucoes);
                     processarCodigo(reg, listaInstrucoes);
-                    exibirValorRegistrador(reg);
+                    exibirValorRegistrador(reg, "OPERAÇÃO DO USUÁRIO");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 2:
@@ -337,7 +400,7 @@ public class Main {
                     if(reg.length == 2) {
                         somaNaoPreserva(reg ,listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg);
+                        exibirValorRegistrador(reg, "SOMA");
                     } else {
                         System.out.println("\n *** Exige 2 registradores para SOMA");
                     }
@@ -348,20 +411,31 @@ public class Main {
                     if(reg.length == 3) {
                         somaPreserva(reg, listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg);
+                        exibirValorRegistrador(reg, "SOMA");
                     } else {
                         System.out.println("\n *** Exige 3 registradores para SOMA Preservar Conteúdo");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 4:
-                    reg = leituraReg("LEITURA - SOMA", 4, 2);
+                    reg = leituraRegSemSinal("LEITURA - MULTIPLICAÇÃO", 4, 2);
                     if(reg.length == 4) {
                         multiplicacao(listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg);
+                        exibirValorRegistrador(reg, "MULTIPLICAÇÃO");
                     } else {
                         System.out.println("\n *** Exige 4 registradores para MULTIPLICAR");
+                    }
+                    listaInstrucoes.removeAll(listaInstrucoes);
+                    break;
+                case 5:
+                    reg = leituraRegSemSinal("LEITURA - A <= B", 4, 2);
+                    if(reg.length == 4) {
+                        verificaMenor(listaInstrucoes);
+                        processarCodigo(reg, listaInstrucoes);
+                        exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
+                    } else {
+                        System.out.println("\n *** Exige 3 registradores para COMPARAR MENOR");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
