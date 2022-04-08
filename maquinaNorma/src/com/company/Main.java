@@ -444,8 +444,10 @@ public class Main {
         // Termina Soma
         listaInstrucoes.add("24: DEC(C)");
         listaInstrucoes.add("25: GOTO(14)");
-        // Decrementa B para multiplicar novamente,
-        // se ele chegar a 0 para de multiplicar.
+        // Decrementa B para saber a quantidade de
+        //  vezes em que vou repitir a multiplicação
+        //  por ele mesmo que está guardado no registrador
+        //  F, chegando 0 para de multiplicar.
         listaInstrucoes.add("26: DEC(B)");
         listaInstrucoes.add("27: JMP0(B,29)");
         listaInstrucoes.add("28: GOTO(10)");
