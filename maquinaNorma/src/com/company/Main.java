@@ -31,7 +31,7 @@ public class Main {
         if(sc.next().equalsIgnoreCase("S")) {
             for(int i = 0; i < reg.length; i++) {
                 System.out.printf("\n\t\t REGISTRADOR %s " +
-                                "\n\t** Informe Sinal: ( 0 - POSITIVO) ( 1 - NEGATIVO) -> ",
+                                "\n\t** Informe Sinal: (0 - POSITIVO) (1 - NEGATIVO) -> ",
                         reg[i].nome);
                 reg[i].setSinal(sc.nextInt());
                 System.out.printf("\t** Informe o Valor: ");
@@ -41,7 +41,7 @@ public class Main {
         return reg;
     }
 
-    public static Registrador[] leituraReg(String titulo, int numReg) {
+    public static Registrador[] leituraReg(String titulo, int numReg, int qtdeLeitura) {
         int num;
 
         System.out.println("\n--------------------------------------\n" +
@@ -55,9 +55,9 @@ public class Main {
 
         System.out.printf("Deseja inserir valores no registradores ? <S/N> ");
         if(sc.next().equalsIgnoreCase("S")) {
-            for(int i = 0; i < reg.length; i++) {
+            for(int i = 0; i < qtdeLeitura; i++) {
                 System.out.printf("\n\t\t REGISTRADOR %s " +
-                                "\n\t** Informe Sinal: ( 0 - POSITIVO) ( 1 - NEGATIVO) -> ",
+                                "\n\t** Informe Sinal: (0 - POSITIVO) (1 - NEGATIVO) -> ",
                         reg[i].getNome());
                 reg[i].setSinal(sc.nextInt());
                 System.out.printf("\t** Informe o Valor: ");
@@ -205,7 +205,7 @@ public class Main {
                     System.out.println("\n# ERRO # instrução '"+ op +"' não existe");
                     i = listaInstrucoes.size();
             }
-            Thread.sleep(2000);
+            Thread.sleep(500);
         }
     }
 
@@ -219,7 +219,7 @@ public class Main {
         }
         System.out.printf("\t- RESULTADO => %c%d",  registrador[0].getSinal() == 0 ? '+' : '-',
                 registrador[0].getValor());
-        sc.nextLine();
+//        sc.nextLine();
     }
 
     public static byte operacoes() {
@@ -254,17 +254,33 @@ public class Main {
     }
 
     // SOMA preservar conteúdo
-    public static void somaPreserva(List<String> listaInstrucoes) {
-        listaInstrucoes.add("0: JMP0(B,5)");
-        listaInstrucoes.add("1: INC(A)");
-        listaInstrucoes.add("2: DEC(B)");
-        listaInstrucoes.add("3: INC(C)");
-        listaInstrucoes.add("4: GOTO(0)");
-        listaInstrucoes.add("5: JMP0(C,9)");
-        listaInstrucoes.add("6: INC(B)");
-        listaInstrucoes.add("7: DEC(C)");
-        listaInstrucoes.add("8: GOTO(5)");
-        listaInstrucoes.add("9: HALT");
+    public static void somaPreserva(Registrador[] reg, List<String> listaInstrucoes) {
+        if((reg[0].getSinal() == 0 && reg[1].getSinal() == 0) ||
+                (reg[0].getSinal() == 1 && reg[1].getSinal() == 0)) {
+            listaInstrucoes.add("0: JMP0(B,5)");
+            listaInstrucoes.add("1: INC(A)");
+            listaInstrucoes.add("2: DEC(B)");
+            listaInstrucoes.add("3: INC(C)");
+            listaInstrucoes.add("4: GOTO(0)");
+            listaInstrucoes.add("5: JMP0(C,9)");
+            listaInstrucoes.add("6: INC(B)");
+            listaInstrucoes.add("7: DEC(C)");
+            listaInstrucoes.add("8: GOTO(5)");
+            listaInstrucoes.add("9: HALT");
+        } else if((reg[0].getSinal() == 1 && reg[1].getSinal() == 1) ||
+                (reg[0].getSinal() == 0 && reg[1].getSinal() == 1)) {
+            listaInstrucoes.add("0: JMP0(B,5)");
+            listaInstrucoes.add("1: DEC(A)");
+            listaInstrucoes.add("2: INC(B)");
+            listaInstrucoes.add("3: INC(C)");
+            listaInstrucoes.add("4: GOTO(0)");
+            listaInstrucoes.add("5: JMP0(C,9)");
+            listaInstrucoes.add("6: DEC(B)");
+            listaInstrucoes.add("7: DEC(C)");
+            listaInstrucoes.add("8: GOTO(5)");
+            listaInstrucoes.add("9: HALT");
+        }
+
     }
 
     public static void multiplicacao(List<String> listaInstrucoes) {
@@ -314,9 +330,10 @@ public class Main {
                     leituraIns(listaInstrucoes);
                     processarCodigo(reg, listaInstrucoes);
                     exibirValorRegistrador(reg);
+                    listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 2:
-                    reg = leituraReg("LEITURA - SOMA", 2);
+                    reg = leituraReg("LEITURA - SOMA", 2, 2);
                     if(reg.length == 2) {
                         somaNaoPreserva(reg ,listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
@@ -327,17 +344,18 @@ public class Main {
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 3:
-                    reg = leituraReg("LEITURA - SOMA");
+                    reg = leituraReg("LEITURA - SOMA", 3, 2);
                     if(reg.length == 3) {
-                        somaPreserva(listaInstrucoes);
+                        somaPreserva(reg, listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
                         exibirValorRegistrador(reg);
                     } else {
                         System.out.println("\n *** Exige 3 registradores para SOMA Preservar Conteúdo");
                     }
+                    listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 4:
-                    reg = leituraReg("LEITURA - MULTIPLICAÇÃO");
+                    reg = leituraReg("LEITURA - SOMA", 4, 2);
                     if(reg.length == 4) {
                         multiplicacao(listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
@@ -345,6 +363,7 @@ public class Main {
                     } else {
                         System.out.println("\n *** Exige 4 registradores para MULTIPLICAR");
                     }
+                    listaInstrucoes.removeAll(listaInstrucoes);
                     break;
             }
         }while(op != 0);
