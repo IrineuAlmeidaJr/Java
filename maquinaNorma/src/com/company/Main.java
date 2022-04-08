@@ -266,6 +266,7 @@ public class Main {
                 "[5] - Compara menor A < B ou A <= B (Precisa 3 registradores)\n" +
                 "[6] - Primo (Precisa 3 registradores)\n" +
                 "[7] - Fatorial (Precisa 5 registradores)\n" +
+                "[8] - Potencia (Precisa 5 registradores)\n" +
                 "\n[0] - SAIR");
         return sc.nextByte();
     }
@@ -404,15 +405,51 @@ public class Main {
         // Termina Soma
         listaInstrucoes.add("24: DEC(C)");
         listaInstrucoes.add("25: GOTO(14)");
+        // Decrementa B para multiplicar novamente,
+        // se ele chegar a 0 para de multiplicar.
         listaInstrucoes.add("26: DEC(B)");
         listaInstrucoes.add("27: JMP0(B,29)");
         listaInstrucoes.add("28: GOTO(10)");
         listaInstrucoes.add("29: HALT");
+    }
 
-
-
-
-
+    public static void potencia(List<String> listaInstrucoes) {
+        // Faz B recebe A - 1
+        listaInstrucoes.add("0: JMP0(A,5)");
+        listaInstrucoes.add("1: INC(F)");
+        listaInstrucoes.add("2: INC(E)");
+        listaInstrucoes.add("3: DEC(A)");
+        listaInstrucoes.add("4: GOTO(0)");
+        listaInstrucoes.add("5: JMP0(E,9)");
+        listaInstrucoes.add("6: INC(A)");
+        listaInstrucoes.add("7: DEC(E)");
+        listaInstrucoes.add("8: GOTO(5)");
+        listaInstrucoes.add("9: DEC(B)");
+        // Multiplicar
+        listaInstrucoes.add("10: JMP0(A,14)");
+        listaInstrucoes.add("11: INC(C)");
+        listaInstrucoes.add("12: DEC(A)");
+        listaInstrucoes.add("13: GOTO(10)");
+        listaInstrucoes.add("14: JMP0(C,26)");
+        // A:= A + B usando D
+        listaInstrucoes.add("15: JMP0(F,20)");
+        listaInstrucoes.add("16: INC(A)");
+        listaInstrucoes.add("17: DEC(F)");
+        listaInstrucoes.add("18: INC(D)");
+        listaInstrucoes.add("19: GOTO(15)");
+        listaInstrucoes.add("20: JMP0(D,24)");
+        listaInstrucoes.add("21: INC(F)");
+        listaInstrucoes.add("22: DEC(D)");
+        listaInstrucoes.add("23: GOTO(20)");
+        // Termina Soma
+        listaInstrucoes.add("24: DEC(C)");
+        listaInstrucoes.add("25: GOTO(14)");
+        // Decrementa B para multiplicar novamente,
+        // se ele chegar a 0 para de multiplicar.
+        listaInstrucoes.add("26: DEC(B)");
+        listaInstrucoes.add("27: JMP0(B,29)");
+        listaInstrucoes.add("28: GOTO(10)");
+        listaInstrucoes.add("29: HALT");
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -498,13 +535,24 @@ public class Main {
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 7:
-                    reg = leituraRegSemSinal("LEITURA - FATORIAL", 6, 1);
-                    if(reg.length == 6) {
+                    reg = leituraRegSemSinal("LEITURA - FATORIAL", 5, 1);
+                    if(reg.length == 5) {
                         fatorial(listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
                         exibirValorRegistrador(reg, "FATORIAL");
                     } else {
                         System.out.println("\n *** Exige 5 registradores para FATORIAL");
+                    }
+                    listaInstrucoes.removeAll(listaInstrucoes);
+                    break;
+                case 8:
+                    reg = leituraRegSemSinal("LEITURA - POTENCIA A^B", 6, 2);
+                    if(reg.length == 6) {
+                        potencia(listaInstrucoes);
+                        processarCodigo(reg, listaInstrucoes);
+                        exibirValorRegistrador(reg, "POTENCIA A^B");
+                    } else {
+                        System.out.println("\n *** Exige 5 registradores para POTENCIA");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
