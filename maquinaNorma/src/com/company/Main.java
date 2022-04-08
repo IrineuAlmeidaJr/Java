@@ -202,17 +202,6 @@ public class Main {
                                 reg[pos].setSinal(0);
                             }
                         }
-//                        if(reg[pos].getSinal() == 1) {
-//                            if(reg[pos].getValor() == 1) {
-//                                reg[pos].setSinal(0);
-//                                reg[pos].setValor(0);
-//                            } else {
-//                                reg[pos].setValor(reg[pos].getValor() - 1);
-//                            }
-//                        } else {
-//                            reg[pos].setValor(reg[pos].getValor() + 1);
-//                        }
-                        // --------------
                         System.out.printf("\n%d: Fazendo %s,    Registrador %s -> %c%d", j++,
                                 listaInstrucoes.get(i), reg[pos].getNome(),
                                 reg[pos].getSinal() == 0 ? '+' : '-',reg[pos].getValor());
@@ -230,7 +219,7 @@ public class Main {
                     System.out.println("\n# ERRO # instrução '"+ op +"' não existe");
                     i = listaInstrucoes.size();
             }
-            Thread.sleep(500);
+            Thread.sleep(10);
         }
     }
 
@@ -275,6 +264,8 @@ public class Main {
                 "[3] - Soma (Precisa 3 registradores) *Preservar conteúdo\n" +
                 "[4] - Multiplicação (Precisa 4 registradores)\n" +
                 "[5] - Compara menor A < B ou A <= B (Precisa 3 registradores)\n" +
+                "[6] - Primo (Precisa 3 registradores)\n" +
+                "[7] - Fatorial (Precisa 5 registradores)\n" +
                 "\n[0] - SAIR");
         return sc.nextByte();
     }
@@ -365,6 +356,62 @@ public class Main {
         listaInstrucoes.add("9: INC(D)");
         listaInstrucoes.add("10: HALT");
         // B chegou em zero primeiro que o A, e o A é zero, então A==B, logo, VERDADEIRO ...... C := C + 1
+    }
+
+    public static void verificaPrimo(List<String> listaInstrucoes) {
+        listaInstrucoes.add("0: JMP0(A,7)"); // Ver para onde pula para o final para o INC(C)
+
+
+        listaInstrucoes.add("0: JMP0(A,4)");
+        listaInstrucoes.add("1: INC(A)");
+        listaInstrucoes.add("2: DEC(B)");
+        listaInstrucoes.add("3: GOTO(0)");
+        listaInstrucoes.add("4: HALT");
+
+        listaInstrucoes.add("1: INC(C)");
+        listaInstrucoes.add("2: GOTO(10)"); // Ver onde é HALT
+
+    }
+
+    public static void fatorial(List<String> listaInstrucoes) {
+        // Faz B recebe A - 1
+        listaInstrucoes.add("0: JMP0(A,5)");
+        listaInstrucoes.add("1: INC(B)");
+        listaInstrucoes.add("2: INC(E)");
+        listaInstrucoes.add("3: DEC(A)");
+        listaInstrucoes.add("4: GOTO(0)");
+        listaInstrucoes.add("5: DEC(B)");
+        listaInstrucoes.add("6: JMP0(E,10)");
+        listaInstrucoes.add("7: INC(A)");
+        listaInstrucoes.add("8: DEC(E)");
+        listaInstrucoes.add("9: GOTO(6)");
+//        // Multiplicar
+        listaInstrucoes.add("10: JMP0(A,14)");
+        listaInstrucoes.add("11: INC(C)");
+        listaInstrucoes.add("12: DEC(A)");
+        listaInstrucoes.add("13: GOTO(10)");
+        listaInstrucoes.add("14: JMP0(C,26)");
+        // A:= A + B usando D
+        listaInstrucoes.add("15: JMP0(B,20)");
+        listaInstrucoes.add("16: INC(A)");
+        listaInstrucoes.add("17: DEC(B)");
+        listaInstrucoes.add("18: INC(D)");
+        listaInstrucoes.add("19: GOTO(15)");
+        listaInstrucoes.add("20: JMP0(D,24)");
+        listaInstrucoes.add("21: INC(B)");
+        listaInstrucoes.add("22: DEC(D)");
+        listaInstrucoes.add("23: GOTO(20)");
+        // Termina Soma
+        listaInstrucoes.add("24: DEC(C)");
+        listaInstrucoes.add("25: GOTO(14)");
+        listaInstrucoes.add("26: DEC(B)");
+        listaInstrucoes.add("27: JMP0(B,29)");
+        listaInstrucoes.add("28: GOTO(10)");
+        listaInstrucoes.add("29: HALT");
+
+
+
+
 
     }
 
@@ -436,6 +483,28 @@ public class Main {
                         exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
                     } else {
                         System.out.println("\n *** Exige 3 registradores para COMPARAR MENOR");
+                    }
+                    listaInstrucoes.removeAll(listaInstrucoes);
+                    break;
+                case 6:
+                    reg = leituraRegSemSinal("LEITURA - PRIMO", 3, 1);
+                    if(reg.length == 3) {
+                        verificaPrimo(listaInstrucoes);
+                        processarCodigo(reg, listaInstrucoes);
+                        exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
+                    } else {
+                        System.out.println("\n *** Exige 3 registradores para saber se é PRIMO");
+                    }
+                    listaInstrucoes.removeAll(listaInstrucoes);
+                    break;
+                case 7:
+                    reg = leituraRegSemSinal("LEITURA - FATORIAL", 6, 1);
+                    if(reg.length == 6) {
+                        fatorial(listaInstrucoes);
+                        processarCodigo(reg, listaInstrucoes);
+                        exibirValorRegistrador(reg, "FATORIAL");
+                    } else {
+                        System.out.println("\n *** Exige 5 registradores para FATORIAL");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
