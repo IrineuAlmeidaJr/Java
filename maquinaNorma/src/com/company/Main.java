@@ -7,12 +7,10 @@ import java.util.Scanner;
 
 public class Main {
 
-//    0: JMP0(registrador,4)  // se zero(registrador) vá para 4 senão vá para a próxima instrução (ou seja, se está na linha 0, então vai para a linha 1)
-//    1: DEC(registrador) // sub(registrador) ou seja, registrador:= registrador - 1
-//    2: INC(registrador) // ad(registrador) ou seja, registrador:= registrador + 1
-//    3: GOTO(instrução) // desvio incondicional
-//    4: HALT // parada
-
+    /*
+        EDUARDO HENRIQUE SHIKAMA DIAS - RA: 10.17.30.322
+        IRINEU DE ALMEIDA JUNIOR - RA: 10.20.22.798
+     */
 
     public static Registrador[] leituraReg(String titulo) {
         System.out.println("\n--------------------------------------\n" +
@@ -211,6 +209,29 @@ public class Main {
                         i = listaInstrucoes.size();
                     }
                     break;
+                case "teste_mod":
+                    pos =  posRegistro(reg, instrucaoSeparada[1]);
+                    int pos2 = posRegistro(reg, instrucaoSeparada[2]);
+                    // Abaixo valida o retorna da posição para ver se tem o registrador
+                    if(pos != -1 || pos2 != -1) {
+                        System.out.printf("\n%d: Fazendo %s,    Registrador %s -> %c%d  " +
+                                        "Registrador %s -> %c%d", j++,
+                                listaInstrucoes.get(i), reg[pos].getNome(),
+                                reg[pos].getSinal() == 0 ? '+' : '-',reg[pos].getValor(),
+                                reg[pos2].getNome(),
+                                reg[pos2].getSinal() == 0 ? '+' : '-',reg[pos2].getValor());
+
+                        int regD = posRegistro(reg, "D");
+                        if(reg[pos].getValor() % reg[pos2].getValor() == 0) {
+                            reg[regD].setValor(0);
+                        } else {
+                            reg[regD].setValor(1);
+                        }
+                    } else {
+                        System.out.println("\n# ERRO # registrador não encontrado");
+                        i = listaInstrucoes.size();
+                    }
+                    break;
                 case "HALT":
                     System.out.printf("\n%d: Fazendo %s ", j++, listaInstrucoes.get(i));
                     i++;
@@ -360,17 +381,29 @@ public class Main {
     }
 
     public static void verificaPrimo(List<String> listaInstrucoes) {
-        listaInstrucoes.add("0: JMP0(A,7)"); // Ver para onde pula para o final para o INC(C)
+        listaInstrucoes.add("0: JMP0(A,100)"); // Ver para onde pula para o final para o INC(C)
+        // Tme incremetar algo `E` por exemplo
+        // C := A
+        listaInstrucoes.add("1: JMP0(A,5)");
+        listaInstrucoes.add("2: INC(C)");
+        listaInstrucoes.add("3: DEC(A)");
+        listaInstrucoes.add("4: GOTO(1)");
+        // C := -1
+        listaInstrucoes.add("5: DEC(C)");
+        // C = 0
+        listaInstrucoes.add("6: JMP0(C,12)"); // Se não for continua se for pula
+        listaInstrucoes.add("7: teste_mod(A,C)");
+        listaInstrucoes.add("8: HALT");
 
 
-        listaInstrucoes.add("0: JMP0(A,4)");
-        listaInstrucoes.add("1: INC(A)");
-        listaInstrucoes.add("2: DEC(B)");
-        listaInstrucoes.add("3: GOTO(0)");
-        listaInstrucoes.add("4: HALT");
-
-        listaInstrucoes.add("1: INC(C)");
-        listaInstrucoes.add("2: GOTO(10)"); // Ver onde é HALT
+//        listaInstrucoes.add("0: JMP0(A,4)");
+//        listaInstrucoes.add("1: INC(A)");
+//        listaInstrucoes.add("2: DEC(B)");
+//        listaInstrucoes.add("3: GOTO(0)");
+//        listaInstrucoes.add("4: HALT");
+//
+//        listaInstrucoes.add("1: INC(C)");
+//        listaInstrucoes.add("2: GOTO(10)"); // Ver onde é HALT
 
     }
 
@@ -414,44 +447,44 @@ public class Main {
     }
 
     public static void potencia(List<String> listaInstrucoes) {
-        // Faz B recebe A - 1
-        listaInstrucoes.add("0: JMP0(A,5)");
-        listaInstrucoes.add("1: INC(F)");
-        listaInstrucoes.add("2: INC(E)");
-        listaInstrucoes.add("3: DEC(A)");
-        listaInstrucoes.add("4: GOTO(0)");
-        listaInstrucoes.add("5: JMP0(E,9)");
-        listaInstrucoes.add("6: INC(A)");
-        listaInstrucoes.add("7: DEC(E)");
-        listaInstrucoes.add("8: GOTO(5)");
-        listaInstrucoes.add("9: DEC(B)");
-        // Multiplicar
-        listaInstrucoes.add("10: JMP0(A,14)");
-        listaInstrucoes.add("11: INC(C)");
-        listaInstrucoes.add("12: DEC(A)");
-        listaInstrucoes.add("13: GOTO(10)");
-        listaInstrucoes.add("14: JMP0(C,26)");
-        // A:= A + B usando D
-        listaInstrucoes.add("15: JMP0(F,20)");
-        listaInstrucoes.add("16: INC(A)");
-        listaInstrucoes.add("17: DEC(F)");
-        listaInstrucoes.add("18: INC(D)");
-        listaInstrucoes.add("19: GOTO(15)");
-        listaInstrucoes.add("20: JMP0(D,24)");
-        listaInstrucoes.add("21: INC(F)");
-        listaInstrucoes.add("22: DEC(D)");
-        listaInstrucoes.add("23: GOTO(20)");
-        // Termina Soma
-        listaInstrucoes.add("24: DEC(C)");
-        listaInstrucoes.add("25: GOTO(14)");
-        // Decrementa B para saber a quantidade de
-        //  vezes em que vou repitir a multiplicação
-        //  por ele mesmo que está guardado no registrador
-        //  F, chegando 0 para de multiplicar.
-        listaInstrucoes.add("26: DEC(B)");
-        listaInstrucoes.add("27: JMP0(B,29)");
-        listaInstrucoes.add("28: GOTO(10)");
-        listaInstrucoes.add("29: HALT");
+//        // Faz B recebe A - 1
+//        listaInstrucoes.add("0: JMP0(A,5)");
+//        listaInstrucoes.add("1: INC(F)");
+//        listaInstrucoes.add("2: INC(E)");
+//        listaInstrucoes.add("3: DEC(A)");
+//        listaInstrucoes.add("4: GOTO(0)");
+//        listaInstrucoes.add("5: JMP0(E,9)");
+//        listaInstrucoes.add("6: INC(A)");
+//        listaInstrucoes.add("7: DEC(E)");
+//        listaInstrucoes.add("8: GOTO(5)");
+//        listaInstrucoes.add("9: DEC(B)");
+//        // Multiplicar
+//        listaInstrucoes.add("10: JMP0(A,14)");
+//        listaInstrucoes.add("11: INC(C)");
+//        listaInstrucoes.add("12: DEC(A)");
+//        listaInstrucoes.add("13: GOTO(10)");
+//        listaInstrucoes.add("14: JMP0(C,26)");
+//        // A:= A + B usando D
+//        listaInstrucoes.add("15: JMP0(F,20)");
+//        listaInstrucoes.add("16: INC(A)");
+//        listaInstrucoes.add("17: DEC(F)");
+//        listaInstrucoes.add("18: INC(D)");
+//        listaInstrucoes.add("19: GOTO(15)");
+//        listaInstrucoes.add("20: JMP0(D,24)");
+//        listaInstrucoes.add("21: INC(F)");
+//        listaInstrucoes.add("22: DEC(D)");
+//        listaInstrucoes.add("23: GOTO(20)");
+//        // Termina Soma
+//        listaInstrucoes.add("24: DEC(C)");
+//        listaInstrucoes.add("25: GOTO(14)");
+//        // Decrementa B para saber a quantidade de
+//        //  vezes em que vou repitir a multiplicação
+//        //  por ele mesmo que está guardado no registrador
+//        //  F, chegando 0 para de multiplicar.
+//        listaInstrucoes.add("26: DEC(B)");
+//        listaInstrucoes.add("27: JMP0(B,29)");
+//        listaInstrucoes.add("28: GOTO(10)");
+//        listaInstrucoes.add("29: HALT");
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -483,88 +516,67 @@ public class Main {
                     break;
                 case 2:
                     reg = leituraReg("LEITURA - SOMA", 2, 2);
-                    if(reg.length == 2) {
-                        somaNaoPreserva(reg ,listaInstrucoes);
-                        processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg, "SOMA");
-                    } else {
-                        System.out.println("\n *** Exige 2 registradores para SOMA");
-                    }
+                    somaNaoPreserva(reg ,listaInstrucoes);
+                    processarCodigo(reg, listaInstrucoes);
+                    exibirValorRegistrador(reg, "SOMA");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 3:
                     reg = leituraReg("LEITURA - SOMA", 3, 2);
-                    if(reg.length == 3) {
-                        somaPreserva(reg, listaInstrucoes);
-                        processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg, "SOMA");
-                    } else {
-                        System.out.println("\n *** Exige 3 registradores para SOMA Preservar Conteúdo");
-                    }
+                    somaPreserva(reg, listaInstrucoes);
+                    processarCodigo(reg, listaInstrucoes);
+                    exibirValorRegistrador(reg, "SOMA");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 4:
                     reg = leituraRegSemSinal("LEITURA - MULTIPLICAÇÃO", 4, 2);
-                    if(reg.length == 4) {
-                        multiplicacao(listaInstrucoes);
-                        processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistrador(reg, "MULTIPLICAÇÃO");
-                    } else {
-                        System.out.println("\n *** Exige 4 registradores para MULTIPLICAR");
-                    }
+                    multiplicacao(listaInstrucoes);
+                    processarCodigo(reg, listaInstrucoes);
+                    exibirValorRegistrador(reg, "MULTIPLICAÇÃO");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 5:
                     reg = leituraRegSemSinal("LEITURA - A <= B", 4, 2);
-                    if(reg.length == 4) {
-                        verificaMenor(listaInstrucoes);
-                        processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
-                    } else {
-                        System.out.println("\n *** Exige 3 registradores para COMPARAR MENOR");
-                    }
+                    verificaMenor(listaInstrucoes);
+                    processarCodigo(reg, listaInstrucoes);
+                    exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 6:
-                    reg = leituraRegSemSinal("LEITURA - PRIMO", 3, 1);
-                    if(reg.length == 3) {
-                        verificaPrimo(listaInstrucoes);
-                        processarCodigo(reg, listaInstrucoes);
-                        exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
-                    } else {
-                        System.out.println("\n *** Exige 3 registradores para saber se é PRIMO");
-                    }
+                    reg = leituraRegSemSinal("LEITURA - PRIMO", 5, 1);
+                    verificaPrimo(listaInstrucoes);
+                    processarCodigo(reg, listaInstrucoes);
+                    exibirValorRegistradorMenor(reg, "REG_1 <= REG_2");
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 7:
                     reg = leituraRegSemSinal("LEITURA - FATORIAL", 5, 1);
-                    if(reg.length == 5) {
+                    if(reg.length == 5 && reg[0].getValor() > 1) {
                         fatorial(listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
                         exibirValorRegistrador(reg, "FATORIAL");
+                    } else if(reg[0].getValor() > 0) {
+                        exibirValorRegistrador(reg, "FATORIAL");
                     } else {
-                        System.out.println("\n *** Exige 5 registradores para FATORIAL");
+                        System.out.println("\n *** ERRO - NaN");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
                 case 8:
                     reg = leituraRegSemSinal("LEITURA - POTENCIA A^B", 6, 2);
-                    if(reg.length == 6) {
+                    if(reg[0].getValor() > 0 && reg[1].getValor() > 0) {
                         potencia(listaInstrucoes);
                         processarCodigo(reg, listaInstrucoes);
                         exibirValorRegistrador(reg, "POTENCIA A^B");
+                    } else if(reg[1].getValor() == 0) {
+                        reg[0].setValor(1);
+                        exibirValorRegistrador(reg, "POTENCIA A^B");
                     } else {
-                        System.out.println("\n *** Exige 5 registradores para POTENCIA");
+                        System.out.println("ERRO - NaN");
                     }
                     listaInstrucoes.removeAll(listaInstrucoes);
                     break;
             }
         }while(op != 0);
-
-
-
-
-
-
     }
 }
