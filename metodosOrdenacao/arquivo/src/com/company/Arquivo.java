@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Arquivo {
 
-    private int numRegTotal = 256;
+    private int numRegTotal = 512;
     private String nomearquivo;
     private RandomAccessFile arquivo;
     private int comp, mov;
