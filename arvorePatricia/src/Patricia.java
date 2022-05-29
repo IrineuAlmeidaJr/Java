@@ -43,6 +43,7 @@ public class Patricia {
             // também para caixa atual, a anterior irá apontar para temporária.
             if(ini < atual_palavra.length() && ini < palavra.length()) {
                 novaPalavra = palavra.substring(ini, palavra.length());
+                boolean tempFlag = ant.getVFlag(pos);
                 ant.setVFlag(pos, false);
                 // --- Tentar fazer ligação que o Chico falou - VER SE É ISSO (parece funcionar)
                 No temp = new No(atual_palavra.substring(0, ini));
@@ -52,6 +53,7 @@ public class Patricia {
                 pos = buscaPos(temp, atual.getInfo());
                 temp.remaneja(pos);
                 temp.setVLig(pos, atual);
+                temp.setVFlag(pos, tempFlag);
                 temp.setTl(temp.getTl()+1);
 
                 // ***
@@ -86,12 +88,13 @@ public class Patricia {
 
     public void pre_ordem(No raiz, int num) {
         if(raiz != null) {
-
+            System.out.println("- - - - - - - - Nível " + num + " - - - - - - - -");
+            System.out.println("[ Info: " + raiz.getInfo() + "]");
             for(int i=0; i < raiz.getTl(); i++) {
-                System.out.println("- - - - - - - - NO - " + num + " - - - - - - - -");
-                System.out.println("[ Info: " + raiz.getVLig(i).getInfo() + "\t| vLig: " + i +
-                                    "| vFlag = " + raiz.getVFlag(i) + "]");
-                System.out.println(i);
+//                System.out.println("- - - - - - - - Nível " + num + " - - - - - - - -");
+//                System.out.println("[ Info: " + raiz.getVLig(i).getInfo() + "\t| vLig: " + i +
+//                                    "| vFlag = " + raiz.getVFlag(i) + "]");
+//                System.out.println(i);
                 pre_ordem(raiz.getVLig(i), num + 1);
             }
             pre_ordem(raiz.getVLig(raiz.getTl()), num + 1);
@@ -99,7 +102,7 @@ public class Patricia {
     }
 
     public void pre_ordem() {
-        pre_ordem(raiz, 1);
+        pre_ordem(raiz, 0);
     }
 
 }
