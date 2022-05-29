@@ -6,17 +6,13 @@ public class Patricia {
         this.raiz = new No();
     }
 
-    public No getRaiz() {
-        return raiz;
-    }
-
     private int buscaPos(No aux, String palavra) {
         int pos = 0;
         while(pos < aux.getTl() && aux.getVLig(pos).getInfo().charAt(0) < palavra.charAt(0))
             pos++;
         return pos;
     }
-    void inserir(No no, String palavra) {
+    private void inserir(No no, String palavra) {
         palavra = palavra.toLowerCase(); // *** garante a palavra em minusculo
         // Busca Sequêncial, para ver onde inserir
         int pos = buscaPos(no, palavra);
@@ -82,27 +78,45 @@ public class Patricia {
         }
     }
 
-    void inserir(String palavra) {
+    public void inserir(String palavra) {
         inserir(raiz, palavra);
     }
 
-    public void pre_ordem(No raiz, int num) {
-        if(raiz != null) {
-            System.out.println("- - - - - - - - Nível " + num + " - - - - - - - -");
-            System.out.println("[ Info: " + raiz.getInfo() + "]");
-            for(int i=0; i < raiz.getTl(); i++) {
+    private void pre_ordem(No no, int nivel) {
+        if(no != null) {
+            System.out.println("- - - - - - - - Nível " + nivel + " - - - - - - - -");
+            System.out.println("[ Info: " + no.getInfo() + "]");
+            for(int i=0; i < no.getTl(); i++) {
 //                System.out.println("- - - - - - - - Nível " + num + " - - - - - - - -");
 //                System.out.println("[ Info: " + raiz.getVLig(i).getInfo() + "\t| vLig: " + i +
 //                                    "| vFlag = " + raiz.getVFlag(i) + "]");
 //                System.out.println(i);
-                pre_ordem(raiz.getVLig(i), num + 1);
+                pre_ordem(no.getVLig(i), nivel + 1);
             }
-            pre_ordem(raiz.getVLig(raiz.getTl()), num + 1);
+            pre_ordem(no.getVLig(no.getTl()), nivel + 1);
         }
     }
 
     public void pre_ordem() {
         pre_ordem(raiz, 0);
+    }
+
+    private void exibirPalavras(No no, String partePalavra) {
+        if(no != null) {
+            String palavra;
+            for(int i=0; i < no.getTl(); i++) {
+                palavra = no.getVLig(i).getInfo();
+                if(no.getVFlag(i) == true) {
+                    System.out.println(partePalavra + palavra);
+                }
+                exibirPalavras(no.getVLig(i), partePalavra + palavra);
+            }
+            exibirPalavras(no.getVLig(no.getTl()), partePalavra);
+        }
+    }
+
+    public void exibirPalavras() {
+        exibirPalavras(raiz, "");
     }
 
 }

@@ -16,12 +16,13 @@ public class Main {
         tree.inserir("sell");
         tree.inserir("stock");
         tree.inserir("stop");
-        tree.inserir("buy");
 
 
 
 
         tree.pre_ordem();
-//        System.out.println(tree.getRaiz().getVLig(0).getInfo()+ " - "+ tree.getRaiz().getVLig(0).getVFlag(0));
+        System.out.println("\n- - - Palavras - - -");
+        tree.exibirPalavras();
+
     }
 }

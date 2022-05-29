@@ -1,4 +1,4 @@
-public class No implements Definicoes{
+public class No{
     private String info;
     private No vLig[];
     private boolean vFlag[];
@@ -6,10 +6,9 @@ public class No implements Definicoes{
 
     public No() {
         this.info = "";
-        this.vLig = new No[N];
-        this.vFlag = new boolean[N];
+        this.vLig = new No[26];
+        this.vFlag = new boolean[26];
         this.tl = 0;
-
     }
 
     public No(String info) {
