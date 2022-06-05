@@ -59,17 +59,19 @@ public class Patricia {
                 // Essas situações abaixo é para tratar caso uma das palavras eu percorro toda ela
                 // e não sobra substring, se sobra só de uma e de outra não, ai tenho que testar para
                 // cada uma delas.
-                if(ini == tamAtualPalavra && ini == tamPalavraInserir) {
-                    atual.setFlag(true);
-                } else  {
-                    if(ini < tamAtualPalavra) {
-                        // Não muda o valor da flag
-                        atual.setInfo(atualPalavra.substring(0, ini));
-                        novaPalavra = atualPalavra.substring(ini, tamAtualPalavra);
-                        inserir(atual, novaPalavra);
-                    } else {
+                if(ini < tamAtualPalavra) {
+                    // Não muda o valor da flag
+                    atual.setInfo(atualPalavra.substring(0, ini));
+                    novaPalavra = atualPalavra.substring(ini, tamAtualPalavra);
+                    inserir(atual, novaPalavra);
+                } else {
+                    if(ini < tamPalavraInserir) {
                         novaPalavra = palavraInserir.substring(ini, tamPalavraInserir);
                         inserir(atual, novaPalavra);
+                    } else { // - Palavras Identicas
+                        // Caso a palavra que estou tentando inserir seja igual a palavra que já
+                        // está na árvore
+                        atual.setFlag(true);
                     }
                 }
             }

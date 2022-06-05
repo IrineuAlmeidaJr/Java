@@ -17,7 +17,7 @@ public class Main {
         tree.inserir("stock");
         tree.inserir("stop");
         // *** Da erro ao inserir "be" (resolvido)
-        tree.inserir("Be");
+//        tree.inserir("Be");
 
         // Essa insereção abaixo dava erro ai tive  que fazer modificação na linha 66, pois,
         // ocorria de a palavra que estou inseridno ser menor do que a que está inserida na árvore,
