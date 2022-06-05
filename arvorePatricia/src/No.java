@@ -1,19 +1,20 @@
 public class No{
     private String info;
     private No vLig[];
-    private boolean vFlag[];
+    private boolean flag;
     private int tl;
 
     public No() {
         this.info = "";
         this.vLig = new No[26];
-        this.vFlag = new boolean[26];
+        this.flag = false;
         this.tl = 0;
     }
 
     public No(String info) {
         this();
         this.info = info;
+        this.flag = true;
     }
 
     public String getInfo() {
@@ -32,12 +33,12 @@ public class No{
         this.vLig[p] = vLig;
     }
 
-    public boolean getVFlag(int p) {
-        return vFlag[p];
+    public boolean getFlag() {
+        return flag;
     }
 
-    public void setVFlag(int p, boolean vFlag) {
-        this.vFlag[p] = vFlag;
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public int getTl() {
@@ -51,7 +52,6 @@ public class No{
     public void remaneja(int pos) {
         for(int i = tl; i > pos; i--) {
             vLig[i] = vLig[i-1];
-            vFlag[i] = vFlag[i-1];
         }
     }
 }
