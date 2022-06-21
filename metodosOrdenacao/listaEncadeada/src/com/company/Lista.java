@@ -575,13 +575,13 @@ public class Lista {
         }
 
         // Inserir na nova lista ordenado
-        noAtual = fim;
-        for(int i=TL; i > 0; i--) {
+        noAtual = inicio;
+        while(noAtual.getProx() != null) {
             noFreq = freq.retornaCaixa(freq.inicio, noAtual.getInfo() - 1);
             saida.retornaCaixa(saida.inicio, noFreq.getInfo()-1).setInfo(noAtual.getInfo());
             noFreq.setInfo(noFreq.getInfo()-1);
 
-            noAtual = noAtual.getAnt();
+            noAtual = noAtual.getProx();
         }
 
         inicio = saida.inicio;
@@ -666,7 +666,7 @@ public class Lista {
         }
 
         // Inserir na nova lista ordenado
-        noAtual = fim; // ***OBS -> lmebra de iniciar do fim, pois, estava dando erro se eu
+        noAtual = fim; // ***OBS -> lembra de iniciar do fim, pois, estava dando erro se eu
         // inicia-se com fim, no counting normal estava OK, mas, aqui estava dando erro,
         // então, o melhor é iniciar o counting sempre do final quando eu for fazer a saída/output
         for(int i=TL; i>0; i--) {
@@ -691,10 +691,10 @@ public class Lista {
         maior = buscaMaior();
         while(maior > 0) {
             countingSortRadix(divisor, 10);
-            divisor *= 10;
             maior /= divisor;
+            divisor *= 10;
         }
-        // Vou dividindo o maior até ele chegar a ser menor que 10,
+        // Vou dividindo o maior até ele chegar a ser menor que 0,
         // essa é a forma de saber quantas vezes eu irei repetir
     }
 

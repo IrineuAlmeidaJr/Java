@@ -60,8 +60,8 @@ public class Patricia {
                 // e não sobra substring, se sobra só de uma e de outra não, ai tenho que testar para
                 // cada uma delas.
                 if(ini < tamAtualPalavra) {
-                    // Não muda o valor da flag
-                    atual.setInfo(atualPalavra.substring(0, ini));
+                    atual.setInfo(palavraInserir);
+                    atual.setFlag(true); // porque tem uma palavra aqui agora, a que mandei inserir
                     novaPalavra = atualPalavra.substring(ini, tamAtualPalavra);
                     inserir(atual, novaPalavra);
                 } else {
